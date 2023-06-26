@@ -41,26 +41,42 @@
     }
 
     class Cart{ 
-        public $cart_id;
-        public $items;
-        public $balance;
+        private $items;
+        private $balance;
         
-        public function __construct($cart_id = 0, $items = [], $balance = 0){
-            $this->$cart_id;
-            $this->$items;
-            $this->$balance;
+        public function __construct($items = array(), $balance = 0){
+            $this->items = $items;
+            $this->balance = $balance;
+        }
+
+        public function addItem($item_id, $quantity){
+            $this->items["$item_id"] = $quantity;
+        }
+
+        public function removeItem($item_id){
+            unset($this->items["$item_id"]);
+        }
+
+        public function calculateBalance(){
+            foreach($this->items as $key => $value){
+                print($key);
+            }
         }
     }
 
     class Item{
         public $item_id;
+        public $item_name;
+        public $stock;
         public $price;
         public $image;
 
-        public function __construct($item_id = 0, $price = 0, $image = ''){
-            $this->item_id;
-            $this->price;
-            $this->image;
+        public function __construct($item_id = 0,$item_name = '',$stock = 0,$price = 0, $image = ''){
+            $this->item_id = $item_id;
+            $this->item_name = $item_name;
+            $this->stock = $stock;
+            $this->price = $price;
+            $this->image = $image;
         }
     }
 
