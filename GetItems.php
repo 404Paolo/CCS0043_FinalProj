@@ -3,8 +3,8 @@
     $header = null;
     $items = array();
 
-    if (($handle = fopen("items.csv", 'r')) !== false) {
-        while (($row = fgetcsv($handle, 1000, ",")) !== false) {
+    if (($file = fopen("items.csv", 'r')) !== false) {
+        while (($row = fgetcsv($file, 1000, ",")) !== false) {
             if (!$header) {
                 $header = $row;
             } else {
@@ -13,10 +13,8 @@
                 $items[] = $item;
             }
         }
-        fclose($handle);
+        fclose($file);
     }
+
     
-    echo "<pre>";
-    print_r($items);
-    echo "<pre>";
 ?>

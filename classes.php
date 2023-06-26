@@ -9,9 +9,10 @@
         private $ign;
         private $user_name;
         private $password;
+        private $transactions;
         public $cart;
 
-        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $password = '', $cart = new Cart())
+        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $password = '', $cart = new Cart(), $transactions = array())
         {
             $this->user_id = $user_id;
             $this->name = $name;
@@ -19,6 +20,7 @@
             $this->user_name = $user_name;
             $this->password = $password;
             $this->cart = $cart;
+            $this->transactions = $transactions;
         }
 
         public function getID(){return $this->user_id;}
@@ -38,6 +40,16 @@
 
         public function getPass(){return $this->password;}
         public function setPass($newPass){$this->password = $newPass;}
+
+        public function displayCart(){
+            echo "<pre>";
+            print_r($this->cart->getItems());
+            echo "</pre>";
+        }
+
+        public function setTransaction(){
+            $transaction_id = str()
+        }
     }
 
     class Cart{ 
@@ -49,18 +61,7 @@
             $this->balance = $balance;
         }
 
-        public function addItem($item_id, $quantity){
-            $this->items["$item_id"] = $quantity;
-        }
-
-        public function removeItem($item_id){
-            unset($this->items["$item_id"]);
-        }
-
-        public function calculateBalance(){
-            foreach($this->items as $key => $value){
-                print($key);
-            }
+        public function generateID(){
         }
     }
 
@@ -91,6 +92,4 @@
             $this->date;
         }
     }
-
-    
 ?>
