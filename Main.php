@@ -1,8 +1,10 @@
 <?php
     require_once("classes.php");
-    require_once("GetItems.php");
-
-    $user = new User();
     
-    $user->displayCart();
+    $user = new User();
+    echo "<pre>";
+    print_r($items);
+    echo "</pre>";
+    
+
 ?>

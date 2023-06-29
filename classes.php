@@ -8,17 +8,17 @@
         private $email;
         private $ign;
         private $user_name;
-        private $password;
+        private $pass;
         private $transactions;
         public $cart;
 
-        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $password = '', $cart = new Cart(), $transactions = array())
+        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $pass = '', $cart = new Cart(), $transactions = array())
         {
             $this->user_id = $user_id;
             $this->name = $name;
             $this->ign = $ign;
             $this->user_name = $user_name;
-            $this->password = $password;
+            $this->pass = $pass;
             $this->cart = $cart;
             $this->transactions = $transactions;
         }
@@ -38,19 +38,34 @@
         public function getUName(){return $this->user_name;}
         public function setUName($newUname){$this->user_name = $newUname;}
 
-        public function getPass(){return $this->password;}
-        public function setPass($newPass){$this->password = $newPass;}
+        public function getPass(){return $this->pass;}
+        public function setPass($newPass){$this->pass = $newPass;}
 
         public function displayCart(){
             echo "<pre>";
-            print_r($this->cart->getItems());
+            print_r($this->cart->items);
             echo "</pre>";
+        }
+
+        public function addtoCart($items, $id){
+            if($items[$id]["stock"] >= 1){
+                $this->cart->items[$id] = $items[$id];
+                $items[$id]["stock"] -= 1;
+            }
+
+            else{
+                echo "item out of stock";
+            }
+        }
+        
+        public function removefromCart($items, $id){
+            $this->cart->items[$id]
         }
     }
 
     class Cart{ 
-        private $items;
-        private $balance;
+        public $items;
+        public $balance;
         
         public function __construct($items = array(), $balance = 0){
             $this->items = $items;
@@ -58,10 +73,6 @@
         }
 
         public function generateID(){
-        }
-
-        public function getItems(){
-            return $this->items;
         }
     }
 
@@ -91,5 +102,22 @@
             $this->cart_id;
             $this->date;
         }
+    }
+
+    //Converting CSV into array of all items(inventory)
+    $header = null;
+    $items = array();
+
+    if (($file = fopen("Items.csv", 'r')) !== false) {
+        while (($row = fgetcsv($file, 1000, ",")) !== false) {
+            if (!$header) {
+                $header = $row;
+            } else {
+                $data = array_combine($header, $row);
+                $item = new Item($data['Id'], $data['Name'], (int)$data['Stock'], (int)$data['Price'], $data['Image']);
+                $items[] = $item;
+            }
+        }
+        fclose($file);
     }
 ?>

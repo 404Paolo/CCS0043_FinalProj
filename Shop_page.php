@@ -14,7 +14,7 @@
   </nav>
   
 
-  <div class="card" style="width: 18rem; display: block; margin-top: 100px; margin: auto;">
+  <div class="card" style="width: 18rem; display: block; margin: auto; margin-top: 100px;">
     <img class="card-img-top" src="..." alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">Card title</h5>
