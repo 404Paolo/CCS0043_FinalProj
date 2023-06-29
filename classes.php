@@ -46,10 +46,6 @@
             print_r($this->cart->getItems());
             echo "</pre>";
         }
-
-        public function setTransaction(){
-            $transaction_id = str()
-        }
     }
 
     class Cart{ 
@@ -62,6 +58,10 @@
         }
 
         public function generateID(){
+        }
+
+        public function getItems(){
+            return $this->items;
         }
     }
 

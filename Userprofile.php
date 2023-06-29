@@ -4,6 +4,5 @@
 
     $user = new User();
     
-
     $user->displayCart();
 ?>
