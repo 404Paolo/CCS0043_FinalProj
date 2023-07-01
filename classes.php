@@ -1,6 +1,10 @@
-<?php
-    global $cart_id;
-    $cart_id = 0;
+<?php   
+    //Getting items from database and storing in an array "$inventory"
+    require_once("connection.php");
+    $query = "SELECT * FROM items";
+    $result = $conn->query($query);
+    $inventory = $result->fetch_all(MYSQLI_ASSOC);
+
 
     class User{
         private $user_id;
@@ -47,10 +51,11 @@
             echo "</pre>";
         }
 
-        public function addtoCart($items, $id){
-            if($items[$id]["stock"] >= 1){
-                $this->cart->items[$id] = $items[$id];
-                $items[$id]["stock"] -= 1;
+        public function addtoCart($id){
+            global $inventory;
+            if($inventory[$id]["stock"] >= 1){
+                $this->cart->items[$id] = $inventory[$id];
+                $inventory[$id]["stock"] -= 1;
             }
 
             else{
@@ -58,8 +63,10 @@
             }
         }
         
-        public function removefromCart($items, $id){
-            $this->cart->items[$id]
+        public function removefromCart($id){
+            global $inventory;
+            unset($this->cart->items[$id]);
+            $inventory[$id]["stock"] += 1;
         }
     }
 
@@ -76,22 +83,6 @@
         }
     }
 
-    class Item{
-        public $item_id;
-        public $item_name;
-        public $stock;
-        public $price;
-        public $image;
-
-        public function __construct($item_id = 0,$item_name = '',$stock = 0,$price = 0, $image = ''){
-            $this->item_id = $item_id;
-            $this->item_name = $item_name;
-            $this->stock = $stock;
-            $this->price = $price;
-            $this->image = $image;
-        }
-    }
-
     class Transaction{
         public $user_id;
         public $cart_id;
@@ -104,20 +95,24 @@
         }
     }
 
-    //Converting CSV into array of all items(inventory)
-    $header = null;
-    $items = array();
-
-    if (($file = fopen("Items.csv", 'r')) !== false) {
-        while (($row = fgetcsv($file, 1000, ",")) !== false) {
-            if (!$header) {
-                $header = $row;
-            } else {
-                $data = array_combine($header, $row);
-                $item = new Item($data['Id'], $data['Name'], (int)$data['Stock'], (int)$data['Price'], $data['Image']);
-                $items[] = $item;
+    //Search function
+    function searchItem($itemName){
+        global $inventory;
+        $items_found = array();
+        foreach($inventory as $id => $item){
+            if(str_contains(strtolower($item["name"]), strtolower($itemName))){
+                $items_found[$item["id"]] = $item;
             }
         }
-        fclose($file);
+
+        if(!$items_found){
+            print("Sorry no items found");
+        }
+
+        else{
+            echo "<pre>";
+            print_r($items_found);
+            echo "</pre>";
+        }
     }
 ?>
