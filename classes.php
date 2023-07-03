@@ -5,7 +5,6 @@
     $result = $conn->query($query);
     $inventory = $result->fetch_all(MYSQLI_ASSOC);
 
-
     class User{
         private $user_id;
         private $name;
@@ -49,6 +48,14 @@
             echo "<pre>";
             print_r($this->cart->items);
             echo "</pre>";
+            print($this->cart->balance);
+        }
+
+        public function displayInventory(){
+            global $inventory;
+            echo "<pre>";
+            print_r($inventory);
+            echo "</pre>";
         }
 
         public function addtoCart($id){
@@ -56,6 +63,7 @@
 
             if($inventory[$id]["stock"] >= 1){
                 $this->cart->items[] = $id;
+                $this->cart->balance += $inventory[$id]["price"];
                 sort($this->cart->items);
                 $inventory[$id]["stock"] -= 1;
             }
@@ -67,20 +75,14 @@
         
         public function removefromCart($id){
             global $inventory;
-            for($i = 0; $i < count($this->cart->items); $i++){
-                if($this->cart->items[$i] == $id){
+            foreach($this->cart->items as $i=>$item_id){
+                if($item_id == $id){
                     unset($this->cart->items[$i]);
-                    $found = true;
+                    $this->cart->balance -= $inventory[$id]["price"];
                     $inventory[$id]["stock"] += 1;
                     break;
                 }
             }
-
-            if(!$found){
-                echo "Item not found";
-            }
-
-            
         }
 
         public function generateCartId(){
