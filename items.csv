@@ -1,4 +1,4 @@
-"Id","Name","Stock","Price","Image"
+"Id","Name","Stock","Price","Image",
 "0","Team Medallion","1","1000","assets\Team_Medallion.png"
 "1","Incubator","100","150","assets\Incubator_Limited.png"
 "2","Super Incubator","50","200","assets\Super_Incubator.png"

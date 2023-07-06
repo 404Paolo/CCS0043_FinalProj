@@ -10,7 +10,6 @@ p{
     margin: 0;
 }
 
-
 .wide{
   width: 100%;
   max-width: 1000px;
@@ -24,7 +23,7 @@ p{
 .nav{
     box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
     background-color: white;
-    height: 100px;
+    height: 60px;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -32,7 +31,7 @@ p{
     left: 0;
     right: 0;
     z-index: 1;
-    padding: 0px 50px 0px 50px
+    padding: 20px 50px 20px 50px
 }
 
 .nav-left{
@@ -46,7 +45,7 @@ p{
     width: 200px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     
 }
 
@@ -58,9 +57,14 @@ p{
     max-width: 1000px;
 }
 
-.pgo-logo{
-    width: 100px;
+.nav-logo{
+    height: 100%;
     margin: 0px 30px 0px 0px;
+}
+
+.coin{
+  width: 25px;
+  margin: 0px 10px 0px 0px;
 }
 
 
@@ -91,22 +95,51 @@ p{
     box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
 }
 
-.button-green{
-    background-image: linear-gradient(319.49deg, rgb(7, 196, 196) 1.87%, rgb(150, 207, 156) 109.19%);
+.round{
+  padding: 0px;
+  width: 50px
+}
+
+.pink{
+  background-image: linear-gradient(262.38deg, rgba(145, 31, 199, 0.12), rgba(176, 204, 245, 0.4), rgba(217, 233, 233, 0.4));
+}
+
+.white{
+  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(345deg) brightness(102%) contrast(101%);
+}
+
+.icon{
+  width: 25px;
+}
+
+.green{
+  background-image: linear-gradient(319.49deg, rgb(7, 196, 196) 1.87%, rgb(150, 207, 156) 109.19%);
+}
+
+.button{
+    background-color: white;
     border: none;
     color: white;
     font-weight: bold;
     font-family: verdana;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 25px;
-    padding: 10px 0px 10px 0px;
+    padding: 10px 20px 10px 20px;
     height: 50px;
-    width: 150px;
     font-size: 15px;
     transition: box-shadow .15s;
   }
   
   .button-green:hover{
     background-image: linear-gradient(319.49deg, rgb(0, 166, 166) 1.87%, rgb(120, 177, 126) 109.19%);
+    cursor: pointer;
+  }
+
+  .side-button:hover{
+    box-shadow: 2px -1px 3px rgba(0,0,0,0.1);
+    background-color: #6cd4a4;
     cursor: pointer;
   }
 
@@ -226,14 +259,3 @@ p{
     object-fit: contain;
     margin: 10px;
   }
-
-  .coin{
-    width: 25px;
-    margin: 0px 10px 0px 0px;
-  }
-
-  .pink{
-    background-image: linear-gradient(262.38deg, rgba(145, 31, 199, 0.12), rgba(176, 204, 245, 0.4), rgba(217, 233, 233, 0.4));
-  }
-
-
