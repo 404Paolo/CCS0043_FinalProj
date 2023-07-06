@@ -125,11 +125,10 @@ p{
     z-index: 0;
 
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 100%;
     justify-items: center;
 
-    row-gap: 100px;
+    row-gap: 200px;
   }
 
   .item-section{
@@ -145,6 +144,7 @@ p{
     width: 100%;    
     margin: 0px 25px 0px 0px;
     display: flex;
+    flex: 1 1 230px;
     flex-wrap: wrap;
     column-gap: 30px;
     justify-content: center;
@@ -160,7 +160,7 @@ p{
     width: 100%;
     max-width: 700px;
     background-color: white;
-    flex: 1;
+    flex: 360px;
   }
 
   .card:hover{
@@ -209,9 +209,8 @@ p{
     font-weight: bold;
     letter-spacing: 0.5px;
     font-size: 13px;
-    width: 200px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px 20px;
   }
 
   .item-price{
