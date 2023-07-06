@@ -1,50 +1,220 @@
-.navbar {
+body{
+    margin: 0;
+    padding: 120px 20px 270px 20px;
+
+    font-family: 'Lato', sans-serif;
+    position: relative;
+}
+
+p{
+    margin: 0;
+}
+
+.nav{
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+    background-color: white;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 75px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    box-shadow: 0 3px 10px #8a8a8a; 
+    right: 0;
+    z-index: 1;
 }
 
-.content {
-    margin-top: 100px; /* Adjust this value based on your navbar height */
-    /* Rest of your styles for the content area */
+.nav-left{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.hoverable-card {
-    transition: box-shadow 0.3s;
-    box-shadow: 0px 0px 5px #33333332;
-    border-radius: 10px;
-}
+.nav-right{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
-.hoverable-card:hover {
-    box-shadow: 0px 0px 30px #33333332;
 }
 
-.card-header {
+.nav-mid{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex:1;
+    max-width: 1000px;
+}
+
+.pgo-logo{
+    height: 35px;
+    margin: 0px 10px 0px 0px;
+}
+
+
+.ttl{
+    font-size: 32px;
+    font-weight: bold;
+    color: rgb(15, 79, 90);
+}
+
+.searchbar{
     height: 50%;
-    background-color: #888;
-  }
-    
-.card-bg {
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+    width: 80%;
+    border: 3px solid rgba(15,79,90,0.2);
+    border-radius: 25px;
+    padding: 2px 20px 0px 20px;
+    box-shadow: inset 0px 2px 8px rgba(0,0,0,0.05);
+    font-size: 16px;
+    font-weight: bold;
+    color:rgba(0, 0, 0, 0.671);
 }
-    
-.card-body {
-    color: #fff;
-    padding: 20px;
+.searchbar::placeholder{
+    font-size: 16px;
+    font-weight: bold;
+    color: lightgrey;
 }
 
-img{
-    width: 30%;
-    display: block;
-    margin: 0 auto;
+.searchbar:hover{
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
 }
+
+.button-green{
+    background-image: linear-gradient(319.49deg, rgb(7, 196, 196) 1.87%, rgb(150, 207, 156) 109.19%);
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-family: verdana;
+    border-radius: 25px;
+    padding: 10px 0px 10px 0px;
+    height: 50px;
+    width: 150px;
+    font-size: 15px;
+    transition: box-shadow .15s;
+  }
+  
+  .button-green:hover{
+    background-image: linear-gradient(319.49deg, rgb(0, 166, 166) 1.87%, rgb(120, 177, 126) 109.19%);
+    cursor: pointer;
+  }
+
+  .footer{
+    position: absolute;
+    background-image: linear-gradient(326.08deg, rgba(3, 46, 85, 0.8) -0.33%, rgba(74, 181, 131, 0.8) 165.76%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    color: white;
+  }
+
+  .main{
+    position: relative;
+    z-index: 0;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    justify-items: center;
+
+    row-gap: 100px;
+  }
+
+  .item-section{
+    width: 90%;
+  }
+
+  .item-title{
+    color: rgb(15, 79, 90);
+  }
+
+  .card-group{
+    width: 100%;    
+    margin: 0px 25px 0px 0px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .card{
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.15);
+    height: 600px;
+    border-radius: 20px;
+    transition: box-shadow .15s;
+    max-width: 700px;
+    background-color: white;
+  }
+
+  .wide{
+    width: 100%;
+    max-width: 1000px;
+  }
+
+  
+  .card:hover{
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  .card-head{
+    color: white;
+    background-color: rgb(218, 235, 233);
+    width: 100%;
+    height: 45%;
+    text-align: center;
+    border: none;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: center;;
+  }
+
+  .card-body{
+    padding: 30px;
+  }
+
+  .item-info{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    row-gap: 20px;
+    width: 100%;
+    justify-items: start;
+    align-items: center;
+  }
+
+  .item-name{
+    font-size: 20px;
+    height: 100%;
+    font-weight: bold;
+    color:rgb(30, 114, 139);
+    display: flex;
+    align-items: center;
+  }
+
+  .item-desc{
+    Text-align: center;
+    background-color: rgb(232, 128, 183);
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+    width: 200px;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .item-price{
+    color:rgba(3, 46, 85, 0.8);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+
+  .coin{
+    width: 25px;
+    margin: 0px 10px 0px 0px;
+  }
+
+  .pink{
+    background-image: linear-gradient(262.38deg, rgba(145, 31, 199, 0.12), rgba(176, 204, 245, 0.4), rgba(217, 233, 233, 0.4));
+  }
+
+
