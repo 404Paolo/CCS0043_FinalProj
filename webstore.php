@@ -30,7 +30,9 @@
     </div>
     <div class="nav-right">
       <button class="button green round"><img src="assets/Cart_icon.png" class="icon white"></button>
-      <button class="button green">Log-in</button>
+      <form action="signIn.php">
+        <input type="submit" class="button green" value="Sign-In">
+      </form>
     </div>
   </div>
   <div class="main"><?php
@@ -49,7 +51,7 @@
                 <div class="item-info">
                   <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
                   <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
-                  <div class="item-price"><img src="assets/PokeCoin.png" class="coin"><?php echo $raw_inventory[$id]["price"] ?></div>
+                  <div class="item-price"><img src="assets/PokeCoin.png" class="small-icon"><?php echo $raw_inventory[$id]["price"] ?></div>
                   <div><button class="button green">Add to cart</button></div>
                 </div>
               </div>

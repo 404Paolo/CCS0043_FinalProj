@@ -11,18 +11,24 @@
   <link rel="stylesheet" href="Style.css">
   <title>Sign In</title>
 </head>
-<body class="signin-page">
+<body class="sign-in-page">
     <h1 style="text-align: center;">Sign in</h1>
     <div class="form-container">
-        <p style="text-align: center; font-weight:bold; color:gray">Register</p>
-        <form class="input-grid" action="">
-            <input type="text" name="name" id="name" placeholder="Your name">
-            <input type="text" name="name" id="name" placeholder="Your name">
-            <input type="text" name="name" id="name" placeholder="Your name">
-            <input type="text" name="name" id="name" placeholder="Your name">
-            <input type="text" name="name" id="name" placeholder="Your name">
-            <input type="text" name="name" id="name" placeholder="Your name">
+        <div class="sign-in-header">
+            <button style="border-right: 1px solid rgba(0,0,0,0.1);"
+                onclick="displayLogIn();">
+                Log-in
+            </button>
+            <button style="color: rgba(0,0,0,0.2);" onclick="displayRegister();">
+                Register
+            </button>
+        </div>
+        <form class="input-grid" action="" style="grid-template-rows: repeat(2, 50px);"> 
+            <input type="text" name="uname" id="uname" placeholder="Username" required>
+            <input type="text" name="pass" id="pass" placeholder="Password" required>
+            <input type="submit" class="button green">
         </form>
     </div>
 </body>
+<script src="functions.js"></script>
 </html>

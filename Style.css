@@ -1,6 +1,5 @@
 *{
-  padding: 0;
-  margin: 0;
+  font-family: 'Lato', sans-serif;
 }
 
 html{
@@ -10,7 +9,6 @@ html{
 
 body {
   margin: 0;
-  font-family: 'Lato', sans-serif;
   position: relative;
 }
 
@@ -18,7 +16,8 @@ body {
   padding: 120px 20px 350px 20px;
 }
 
-.signin-page {
+.sign-in-page {
+  padding: 100px 0px 0px 0px;
   height: 100%;
   background-color: rgb(239, 239, 239);
   display: flex;
@@ -29,6 +28,7 @@ body {
 p {
   margin: 0;
 }
+
 
 form {
   display: flex;
@@ -73,6 +73,7 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: relative;
 
 }
 
@@ -89,7 +90,7 @@ form {
   margin: 0px 30px 0px 0px;
 }
 
-.coin {
+.small-icon {
   width: 25px;
   margin: 0px 10px 0px 0px;
 }
@@ -149,7 +150,6 @@ form {
   border: none;
   color: white;
   font-weight: bold;
-  font-family: verdana;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,7 +160,7 @@ form {
   transition: box-shadow .15s;
 }
 
-.button:hover {
+.green:hover {
   background-image: linear-gradient(319.49deg, rgb(0, 166, 166) 1.87%, rgb(120, 177, 126) 109.19%);
   cursor: pointer;
 }
@@ -291,8 +291,8 @@ form {
 
 .form-container {
   width: 60%;
-  height: 700px;
-  max-width: 650px;
+  height: max-content;
+  max-width: 500px;
   background-color: white;
   border-radius: 10px;
   display: grid;
@@ -301,19 +301,84 @@ form {
 }
 
 .input-grid{
-  padding: 10px;
+  min-width: 200px;
   display: grid;
-  grid-template-rows: repeat(6, 50px);
+  padding: 40px 0px 40px 0px;
   grid-template-columns: 80%;
   grid-gap: 10px;
 }
 
 .input-grid input{
-  padding: 0px 20px 0px 20px;
-  border: none;
-  width: 100%;
+  text-align:center;
+  font-weight: bold;
+  padding: 0px 0px 0px 20px;
+  margin: 0;
   font-size: 15px;
   border-radius: 25px;
   border: 1px solid #ccc;
-  box-shadow: inset 0px 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+.input-grid input::placeholder{
+  text-align: left;
+  color: rgba(0, 0, 0, 0.35)
+}
+
+.sign-in-header{
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  transition: .5s;
+  -webkit-transition: 1s;
+}
+
+.sign-in-header button{
+  font-size: 15px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+  border: none;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.015);
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.sign-in-header button:hover{
+  background-color: rgba(0,0,0,0.05);
+}
+
+.sign-in-header button:active{
+  background-color: rgba(0,0,0,0.005);
+}
+
+.gray{
+  background-color: transparent;
+  font-weight: bold;
+  color:rgba(3, 46, 85, 0.8);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.6s;
+}
+
+.gray:hover{
+  background-color: rgba(3, 46, 85, 0.15);
+}
+
+.profile-popup{
+  position: absolute;
+  color: pink;
+  background-color: white;
+  top: 80px; 
+  height: 100px;
+  width: 200px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
+  border-radius: 0px 0px 12px 10px;
+}
+
+.profile-popup button{
+  padding: 0px 20px 0px 20px;
+  border: none;
+  border-radius: 0px 0px 10px 10px;
 }

@@ -11,25 +11,27 @@
   <link rel="stylesheet" href="Style.css">
   <title>Document</title>
 </head>
-
 <body>
-  <div class="nav green">
+  <div class="nav">
     <div class="nav-left">
-      <button class="side-button"><img src="assets/Home_icon.png" class="nav-logo white"></button>
+      <img src="assets/pgo-logo.webp" class="nav-logo">
+      <span class="ttl">Web Store</span>
     </div>
     <div class="nav-mid">
-      <img src="assets/Cart_icon.png" class="nav-logo white">
-      <span class="ttl" style="color:white;">Your cart</span>
     </div>
     <div class="nav-right">
+      <button class="button green round"><img src="assets/Cart_icon.png" class="icon white"></button>
+      <button class="button gray" onclick="profilePopup();">404Gohan</button>
+      <div class="profile-popup" style="visibility:hidden;">
+        <button class="gray" style="border-radius: 0;">
+          Profile
+        </button>
+        <button class="gray">
+          Sign out
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="cart-section">
-    <div class="cart-item">
-    </div>
-  </div>
-  <div class="footer">
   </div>
 </body>
-
+<script src="functions.js"></script>
 </html>

@@ -20,7 +20,7 @@ $items_found = searchItem($search_string);
   <title>Document</title>
 </head>
 
-<body>
+<body class="home-page">
   <div class="nav">
     <div class="nav-left">
       <img src="assets/pgo-logo.webp" class="nav-logo">
@@ -39,8 +39,9 @@ $items_found = searchItem($search_string);
   <div class="main">
     <h1 class="item-title">
       <?php
-        if(!$items_found): echo 'Sorry no items found with "'.$search_string.'"';
-        else: echo 'Results for "'.$search_string.'"';
+        if(!$items_found){echo 'Sorry no items found with "'.$search_string.'"';}
+        else{
+          echo 'Results for "'.$search_string.'"';
       ?>
     </h1><?php
     foreach ($items_found as $category => $item) { ?>
@@ -74,7 +75,7 @@ $items_found = searchItem($search_string);
         </div>
       </div><?php
     }
-  endif;?>
+  }?>
   </div>
 </body>
 </html>

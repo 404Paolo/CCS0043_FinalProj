@@ -3,3 +3,4 @@
 - Cart Page
 - Profile Page
 - Footer content
+- Welcome Page
