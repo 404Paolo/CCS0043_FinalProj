@@ -407,8 +407,9 @@ form {
   border: 1px solid rgb(223, 237, 213);
   border-radius: 25px;
   width: 60%;
-  min-width: 800px;
-  height: 110px;
+  min-width: 300px;
+  max-width: 8000px;
+  height: 100px;
   padding: 30px;
   display: flex;
   flex-basis: auto 1fr auto;
@@ -416,6 +417,12 @@ form {
   justify-content: space-between;
   font-weight: bold;
   color: rgba(3, 46, 85, 0.8);
+  transition: box-shadow 0.3s;
+}
+
+.cart-card:hover{
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .cartItem-img{
