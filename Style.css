@@ -75,7 +75,7 @@ p{
 }
 
 .searchbar{
-    height: 50%;
+    height: 50px;
     width: 80%;
     border: 2px solid rgba(15,79,90,0.2);
     border-radius: 25px;
@@ -132,7 +132,7 @@ p{
     transition: box-shadow .15s;
   }
   
-  .button-green:hover{
+  .button:hover{
     background-image: linear-gradient(319.49deg, rgb(0, 166, 166) 1.87%, rgb(120, 177, 126) 109.19%);
     cursor: pointer;
   }

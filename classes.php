@@ -3,7 +3,16 @@
     require_once("connection.php");
     $query = "SELECT * FROM items";
     $result = $conn->query($query);
-    $inventory = $result->fetch_all(MYSQLI_ASSOC);
+    $raw_inventory = $result->fetch_all(MYSQLI_ASSOC);
+    $inventory = array();
+    //Organizes sql result into categories
+    foreach($raw_inventory as $key=>$item){
+      $category = $item['category'];
+  
+      if(!array_key_exists($category, $inventory)){$inventory[$category] = array();}
+  
+      $inventory[$category][$item['id']] = $item['id'];
+    }
 
     class User{
         private $user_id;
