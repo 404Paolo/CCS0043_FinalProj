@@ -35,7 +35,7 @@
       </form>
     </div>
   </div>
-  <div class="main"><?php
+  <div class="main store-grid"><?php
     foreach($inventory as $category=>$item)
     {?>
       <div class="item-section">
