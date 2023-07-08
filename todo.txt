@@ -1,0 +1,5 @@
+- Transactions
+    - Queries
+- Cart Page
+- Profile Page
+- Footer content

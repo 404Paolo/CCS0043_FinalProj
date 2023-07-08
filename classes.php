@@ -149,22 +149,29 @@
 
     //Search function
     function searchItem($itemName){
-        global $inventory;
-        $items_found = array();
-        foreach($inventory as $id => $item){
+        global $raw_inventory;
+        $raw_items_found = array();
+        foreach($raw_inventory as $id => $item){
             if(str_contains(strtolower($item["name"]), strtolower($itemName))){
-                $items_found[$item["id"]] = $item;
+                $raw_items_found[$item["id"]] = $item;
             }
         }
 
-        if(!$items_found){
-            print("Sorry no items found");
+        if(!$raw_items_found){
+            return 0;
         }
 
         else{
-            echo "<pre>";
-            print_r($items_found);
-            echo "</pre>";
+            $items_found = array();
+            foreach($raw_items_found as $key=>$item){
+                $category = $item['category'];
+            
+                if(!array_key_exists($category, $items_found)){$items_found[$category] = array();}
+            
+                $items_found[$category][$item['id']] = $item['id'];
+            }
+
+            return $items_found;
         }
     }
 ?>

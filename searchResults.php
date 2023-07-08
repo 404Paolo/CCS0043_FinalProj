@@ -1,11 +1,13 @@
 <?php
-  require_once('classes.php');
-  session_start();
-  $user = new User(0, 'Goku');
-  $_SESSION['user'] = $user;
+require_once('classes.php');
+session_start();
+$search_string = $_GET['search_string'];
+$items_found = searchItem($search_string);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +19,7 @@
   <link rel="stylesheet" href="Style.css">
   <title>Document</title>
 </head>
+
 <body>
   <div class="nav">
     <div class="nav-left">
@@ -33,33 +36,45 @@
       <button class="button green">Log-in</button>
     </div>
   </div>
-  <div class="main"><?php
-    foreach($inventory as $category=>$item)
-    {?>
+  <div class="main">
+    <h1 class="item-title">
+      <?php
+        if(!$items_found): echo 'Sorry no items found with "'.$search_string.'"';
+        else: echo 'Results for "'.$search_string.'"';
+      ?>
+    </h1><?php
+    foreach ($items_found as $category => $item) { ?>
       <div class="item-section">
-        <h1 class="item-title"><?php echo $category ?></h1>
-        <div class="card-group"><?php
-          foreach($item as $id)
-          {?>
+        <h1 class="item-title">
+          <?php echo $category ?>
+        </h1>
+        <div class="card-group">
+          <?php
+          foreach ($item as $id) { ?>
             <div class="card">
               <div class="card-head pink">
-                <img class="item-img" src="<?php echo $raw_inventory[$id]["image"];?>">
+                <img class="item-img" src="<?php echo $raw_inventory[$id]["image"]; ?>">
               </div>
               <div class="card-body">
                 <div class="item-info">
-                  <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
-                  <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
-                  <div class="item-price"><img src="assets/PokeCoin.png" class="coin"><?php echo $raw_inventory[$id]["price"] ?></div>
+                  <div class="item-name">
+                    <?php echo $raw_inventory[$id]["name"]; ?>
+                  </div>
+                  <div class="item-desc">
+                    <?php echo $raw_inventory[$id]["description"]; ?>
+                  </div>
+                  <div class="item-price"><img src="assets/PokeCoin.png" class="coin">
+                    <?php echo $raw_inventory[$id]["price"] ?>
+                  </div>
                   <div><button class="button green">Add to cart</button></div>
                 </div>
               </div>
             </div><?php
-          }?>
+          } ?>
         </div>
       </div><?php
-    }?>
+    }
+  endif;?>
   </div>
-<div class="footer">
-</div>
 </body>
 </html>
