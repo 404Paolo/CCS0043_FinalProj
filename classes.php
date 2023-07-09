@@ -36,22 +36,22 @@
         }
 
         public function getID(){return $this->user_id;}
-        public function setID($newID){$this->user_id = $newID;}
+        // public function setID($newID){$this->user_id = $newID;}
 
         public function getName(){return $this->name;}
-        public function setName($newName){$this->name = $newName;}
+        // public function setName($newName){$this->name = $newName;}
 
         public function getEmail(){return $this->email;}
-        public function setEmail($newEmail){$this->email = $newEmail;}
+        // public function setEmail($newEmail){$this->email = $newEmail;}
 
         public function getIGN(){return $this->ign;}
-        public function setIGN($newIGN){$this->ign = $newIGN;}
+        // public function setIGN($newIGN){$this->ign = $newIGN;}
 
         public function getUName(){return $this->user_name;}
-        public function setUName($newUname){$this->user_name = $newUname;}
+        // public function setUName($newUname){$this->user_name = $newUname;}
 
         public function getPass(){return $this->pass;}
-        public function setPass($newPass){$this->pass = $newPass;}
+        // public function setPass($newPass){$this->pass = $newPass;}
 
         public function displayCart(){
             echo "<pre>";
@@ -68,13 +68,13 @@
         }
 
         public function addtoCart($id){
-            global $inventory;
+            global $raw_inventory;
 
-            if($inventory[$id]["stock"] >= 1){
+            if($raw_inventory[$id]["stock"] >= 1){
                 $this->cart->items[] = $id;
-                $this->cart->balance += $inventory[$id]["price"];
+                $this->cart->balance += $raw_inventory[$id]["price"];
                 sort($this->cart->items);
-                $inventory[$id]["stock"] -= 1;
+                $raw_inventory[$id]["stock"] -= 1;
             }
 
             else{
@@ -83,12 +83,12 @@
         }
         
         public function removefromCart($id){
-            global $inventory;
+            global $raw_inventory;
             foreach($this->cart->items as $i=>$item_id){
                 if($item_id == $id){
                     unset($this->cart->items[$i]);
-                    $this->cart->balance -= $inventory[$id]["price"];
-                    $inventory[$id]["stock"] += 1;
+                    $this->cart->balance -= $raw_inventory[$id]["price"];
+                    $raw_inventory[$id]["stock"] += 1;
                     break;
                 }
             }
@@ -144,6 +144,9 @@
             $this->user_id;
             $this->cart_id;
             $this->date;
+        }
+
+        public function generateTransactionID(){
         }
     }
 

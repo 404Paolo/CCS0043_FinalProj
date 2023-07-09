@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="Style.css">
   <title>Document</title>
 </head>
-<body>
+<body class="home-page">
   <div class="nav">
     <div class="nav-left">
       <img src="assets/pgo-logo.webp" class="nav-logo">
@@ -29,7 +29,9 @@
       </form>
     </div>
     <div class="nav-right">
-      <button class="button green round"><img src="assets/Cart_icon.png" class="icon white"></button>
+      <form action="cart.html">
+        <input type="submit" class="button green" value="Go to cart">
+      </form>
       <form action="signIn.php">
         <input type="submit" class="button green" value="Sign-In">
       </form>
