@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,22 +12,23 @@
 </head>
 <body class="home-page">
   <div class="nav">
-    <div class="nav-left">
+  <form class="nav-left" action="webstore.php">
+      <input type="submit" class="hidden-button" value="">
       <img src="assets/pgo-logo.webp" class="nav-logo">
       <span class="ttl">Web Store</span>
-    </div>
+    </form>
     <div class="nav-mid">
     </div>
     <div class="nav-right">
       <div class="coin-balance" ><img src="assets/PokeCoin.png" class="small-icon">100000 Coins</div>
       <button class="button gray" onclick="profilePopup();">404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
-        <button class="gray" style="border-radius: 0;">
-          Profile
-        </button>
-        <button class="gray">
-          Sign out
-        </button>
+        <form  action="" method="POST">
+          <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
+        </form>
+        <form action="webstore.php" method="POST">
+          <input class="gray" type="submit" action="signIn.php" value="Sign out" name="signout">
+        </form>
       </div>
     </div>
   </div>

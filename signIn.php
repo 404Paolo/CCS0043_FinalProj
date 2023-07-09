@@ -1,3 +1,10 @@
+<?php
+    if(isset($_POST['signout'])){
+        session_start();
+        unset($_SESSION);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,9 +30,9 @@
                 Register
             </button>
         </div>
-        <form class="input-grid" action="" style="grid-template-rows: repeat(2, 50px);"> 
+        <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);"> 
             <input type="text" name="uname" id="uname" placeholder="Username" required>
-            <input type="text" name="pass" id="pass" placeholder="Password" required>
+            <input type="password" name="pass" id="pass" placeholder="Password" required>
             <input type="submit" class="button green">
         </form>
     </div>

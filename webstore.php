@@ -1,8 +1,15 @@
 <?php
   require_once('classes.php');
   session_start();
-  $user = new User(0, 'Goku');
-  $_SESSION['user'] = $user;
+
+  if(isset($_POST['signout'])){
+    unset($_SESSION);
+  }
+
+  elseif(isset($_POST['user'])){
+    $user = new User('Goku');
+    $_SESSION['user'] = $user; 
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +20,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Style.css">
   <title>Document</title>
 </head>
@@ -31,14 +37,23 @@
     </div>
     <div class="nav-right">
       <?php
-      if(!isset($_POST['user'])){?>
+      if(!isset($_SESSION['user'])){?>
         <form action="signIn.php">
           <input type="submit" class="button green" value="Sign-In">
         </form><?php
       }
       else{?>
-        <form action="cart.html">
-          <input type="submit" class="button green" value="Go to cart">
+        <form class ="coin-balance" style="position: relative;">
+          <input type="submit" class="addcoin-button" value="">
+          <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
+          <span style="font-weight: bold; color: #F1C40F;">200</span>
+          <img src="assets/PokeCoin.png" class="small-icon">
+        </form>
+        <form action="cart.php">
+          <input type="submit" class="button green" value="Go to cart" >
+        </form>
+        <form action="webstore.php">
+          <input type="submit" class="button green" value="Sign out" name="signout">
         </form><?php
       }?>
     </div>
@@ -60,7 +75,16 @@
                   <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
                   <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
                   <div class="item-price"><img src="assets/PokeCoin.png" class="small-icon"><?php echo $raw_inventory[$id]["price"] ?></div>
-                  <div><button class="button green">Add to cart</button></div>
+                  <div><?php
+                    if(isset($_SESSION['user'])){?>
+                      <button class="button green">Add to cart</button><?php
+                    }
+                    else{?>
+                      <form action="signIn.php">
+                        <input type="submit" class="button green" value="Sign-In To Purchase">
+                      </form><?php
+                    }?>
+                  </div>
                 </div>
               </div>
             </div><?php
