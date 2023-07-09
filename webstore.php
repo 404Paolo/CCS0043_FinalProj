@@ -19,22 +19,28 @@
 </head>
 <body class="home-page">
   <div class="nav">
-    <div class="nav-left">
+    <form class="nav-left" action="webstore.php">
+      <input type="submit" class="hidden-button" value="">
       <img src="assets/pgo-logo.webp" class="nav-logo">
       <span class="ttl">Web Store</span>
-    </div>
+    </form>
     <div class="nav-mid">
       <form action="searchResults.php" method="GET">
         <input type="search" class="searchbar" placeholder="Search" name="search_string" id="search_string"></input>
       </form>
     </div>
     <div class="nav-right">
-      <form action="cart.html">
-        <input type="submit" class="button green" value="Go to cart">
-      </form>
-      <form action="signIn.php">
-        <input type="submit" class="button green" value="Sign-In">
-      </form>
+      <?php
+      if(!isset($_POST['user'])){?>
+        <form action="signIn.php">
+          <input type="submit" class="button green" value="Sign-In">
+        </form><?php
+      }
+      else{?>
+        <form action="cart.html">
+          <input type="submit" class="button green" value="Go to cart">
+        </form><?php
+      }?>
     </div>
   </div>
   <div class="main store-grid"><?php

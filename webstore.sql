@@ -72,7 +72,7 @@ INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `ca
 (27, 'Trainee Box', 40, 215, 'assets\\Trainee_Box.png', 'Assorted Items', 'Boxes'),
 (28, 'Voyager Box', 20, 1485, 'assets\\Voyager_Box.png', 'Assorted Items', 'Boxes'),
 (29, 'Team Medallion', 1, 1000, 'assets\\Team_Medallion.png', 'Change teams(One-time use)', 'Others'),
-(30, 'Poffin', 100, 100, 'assets\\Poffin.png', 'Boost Pokemon\'s Conditions', 'Others'),
+(30, 'Poffin', 100, 100, 'assets\\Poffin.png', 'Boost Pokemon\'s" Conditions', 'Others'),
 (31, 'Star Piece x1', 100, 80, 'assets\\Star_Piece.png', 'Stardust boost', 'Others'),
 (32, 'Star Piece x8', 20, 640, 'assets\\Star_Piece8.png', 'Stardust boost', 'Others'),
 (33, 'Coin Handful', 100, 29, 'assets\\Coin_Handful.png', '100 Pokecoins', 'Coins'),

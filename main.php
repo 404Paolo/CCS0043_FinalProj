@@ -1,9 +1,12 @@
 <?php
     require_once('classes.php');
-    $user1 = new User(0,'Goku1','test@gmail.com','404Gohan','404Gohan',
-    '00000000');
-    $transaction = new Transaction($user1->getId());
-    $transaction->cart_id = $user1->generateCartId();
-    $transaction->date = date("Y-m-d H:i:s");
-    
+    $user1 = new User(0,'Goku1','test@gmail.com','404Gohan','404Gohan',10000,'00000000');
+
+    $user1->addtoCart(36);
+    $user1->addtoCart(32);
+    $user1->addtoCart(36);
+    $user1->displayCart();
+    $user1->completeTransaction();
+    $user1->displayTransactions();
+    $user1->displayCart();
 ?>

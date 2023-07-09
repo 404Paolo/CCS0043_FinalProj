@@ -22,9 +22,10 @@
         private $user_name;
         private $pass;
         private $transactions;
+        private $balance;
         public $cart;
 
-        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $pass = '', $cart = new Cart(), $transactions = array())
+        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $balance = 0, $pass = '', $cart = new Cart(), $transactions = array())
         {
             $this->user_id = $user_id;
             $this->name = $name;
@@ -32,6 +33,7 @@
             $this->user_name = $user_name;
             $this->pass = $pass;
             $this->cart = $cart;
+            $this->balance = $balance;
             $this->transactions = $transactions;
         }
 
@@ -57,13 +59,19 @@
             echo "<pre>";
             print_r($this->cart->items);
             echo "</pre>";
-            print($this->cart->balance);
+            print($this->cart->total);
         }
 
         public function displayInventory(){
-            global $inventory;
+            global $raw_inventory;
             echo "<pre>";
-            print_r($inventory);
+            print_r($raw_inventory);
+            echo "</pre>";
+        }
+
+        public function displayTransactions(){
+            echo "<pre>";
+            print_r($this->transactions);
             echo "</pre>";
         }
 
@@ -72,7 +80,7 @@
 
             if($raw_inventory[$id]["stock"] >= 1){
                 $this->cart->items[] = $id;
-                $this->cart->balance += $raw_inventory[$id]["price"];
+                $this->cart->total += $raw_inventory[$id]["price"];
                 sort($this->cart->items);
                 $raw_inventory[$id]["stock"] -= 1;
             }
@@ -80,14 +88,14 @@
             else{
                 echo "item out of stock";
             }
-        }
+        } 
         
         public function removefromCart($id){
             global $raw_inventory;
             foreach($this->cart->items as $i=>$item_id){
                 if($item_id == $id){
                     unset($this->cart->items[$i]);
-                    $this->cart->balance -= $raw_inventory[$id]["price"];
+                    $this->cart->total -= $raw_inventory[$id]["price"];
                     $raw_inventory[$id]["stock"] += 1;
                     break;
                 }
@@ -95,7 +103,8 @@
         }
 
         public function generateCartId(){
-            $base = 40;
+            global $raw_inventory;
+            $base = count($raw_inventory);
             $num = 0;
             $items = array();
             $len = count($this->cart->items);
@@ -123,15 +132,30 @@
                 return strval($this->recurse($num/$base)).strval($num%$base);
             }
         }
+
+        public function completeTransaction(){
+            if($this->balance >= $this->cart->total){
+                $transaction = new Transaction($this->user_id, $this->generateCartId());
+                $this->transactions[] = $transaction;
+                $this->balance -= $this->cart->total;
+
+                $this->cart->items = array();
+                $this->cart->total = 0;
+            }
+
+            else{
+                echo 'Sorry, you have insufficient balance to complete this transactions';
+            }
+        }
     }
 
     class Cart{ 
         public $items;
-        public $balance;
+        public $total;
         
-        public function __construct($items = array(), $balance = 0){
+        public function __construct($items = array(), $total = 0){
             $this->items = $items;
-            $this->balance = $balance;
+            $this->total = $total;
         }
     }
 
@@ -140,13 +164,14 @@
         public $cart_id;
         public $date;
 
-        public function __construct($user_id = 0, $cart_id = 0, $date = ''){
-            $this->user_id;
-            $this->cart_id;
-            $this->date;
+        public function __construct($user_id = 0, $cart_id = ''){
+            $this->user_id = strval($user_id);
+            $this->cart_id = $cart_id;
+            $this->date =  date("Y-m-d H:i:s");
         }
 
         public function generateTransactionID(){
+            return $this->user_id.'_'.$this->cart_id.'_'.$this->date;
         }
     }
 
