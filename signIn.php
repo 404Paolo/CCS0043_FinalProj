@@ -1,10 +1,4 @@
-<?php
-    if(isset($_POST['signout'])){
-        session_start();
-        unset($_SESSION);
-    }
-?>
-
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,12 +24,15 @@
                 Register
             </button>
         </div>
-        <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);"> 
-            <input type="text" name="uname" id="uname" placeholder="Username" required>
+        <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);">
+            <input type="text" name="user_name" id="user_name" placeholder="User name" required>
             <input type="password" name="pass" id="pass" placeholder="Password" required>
-            <input type="submit" class="button green">
+            <input type="submit" class="button green" name="signIn">
         </form>
-    </div>
+    </div><?php
+    if(isset($_SESSION['valid_user']) && $_SESSION['valid_user'] == false){?>
+        <p class="alert">Sorry invalid credentials</p><?php
+    }?>
 </body>
 <script src="functions.js"></script>
 </html>

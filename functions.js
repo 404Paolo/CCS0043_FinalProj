@@ -9,10 +9,10 @@ function displayLogIn(){
             Register
         </button>
     </div>
-    <form class="input-grid" action="webstore.html" method="POST"style="grid-template-rows: repeat(2, 50px);"> 
-        <input type="text" name="uname" id="uname" placeholder="Username" required>
-        <input type="text" name="pass" id="pass" placeholder="Password" required>
-        <input type="submit" class="button green">
+    <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);"> 
+        <input type="text" name="user_name" id="user_name" placeholder="User name" required>
+        <input type="password" name="pass" id="pass" placeholder="Password" required>
+        <input type="submit" class="button green" name="signIn">
     </form>`;
 
     document.body.querySelector('.form-container').innerHTML= html;
@@ -25,17 +25,18 @@ function displayRegister(){
             onclick="displayLogIn();">
             Log-in
         </button>
-        <button onclick="displayLogIn();" style="background-color: background-color: rgba(0,0,0,0.05);">
+        <button onclick="displayRegister();" style="background-color: background-color: rgba(0,0,0,0.05);">
             Register
         </button>
     </div>
     <form class="input-grid" action="welcome.php" method="POST" style="grid-template-rows: repeat(6, 50px);"> 
         <input type="text" name="name" id="name" placeholder="Full name" required>
         <input type="text" name="user_name" id="user_name" placeholder="User name" required>
-        <input type="text" name="email" id="email" placeholder="Email address">
-        <input type="text" name="pass" id="pass" placeholder="Password (at least 8 characters)" required>
-        <input type="text" name="cpass" id="cpass" placeholder="Confirm your password" required>
-        <input type="submit" class="button green">
+        <input type="text" name="ign" id="ign" placeholder="In game name" required>
+        <input type="text" name="email" id="email" placeholder="Email address" required>
+        <input type="password" name="pass" id="pass" placeholder="Password (at least 8 characters)" required>
+        <input type="password" name="cpass" id="cpass" placeholder="Confirm your password" required>
+        <input type="submit" class="button green" name="register">
     </form>`;
 
     document.body.querySelector('.form-container').innerHTML= html;

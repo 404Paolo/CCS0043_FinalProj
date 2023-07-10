@@ -202,4 +202,60 @@
             return $items_found;
         }
     }
+
+    function registerUser($conn){
+        $user = $_POST;
+        $invalid_input = 0;
+        $regex = array(
+            "name" => "/^[a-zA-Z_\s'\.]*$/",
+            "user_name" => "/^[a-zA-Z0-9#!\?\*_\s'-\.]+$/",
+            "ign" => "/^[a-zA-Z0-9#!\?\*_\s'-\.]+$/",
+            "email" => "/^[a-zZ-a0-9._]+@[a-zA-Z0-9.-]+[\.][a-zA-Z]{2,}$/",
+            "pass" => "/^.{8,}$/",    
+            "cpass" => "/^.{8,}$/"
+        );
+
+        $alert_message = "Invalid inputs for";
+        foreach ($user as $key=>$value){
+            if(!preg_match($regex[$key], $value)){
+                $alert_message .= " -$key";
+                $invalid_input += 1;
+            }
+        }
+
+        if(!$invalid_input){
+            require_once('connection.php');
+            $name = $user['name'];
+            $user_name = $user['user_name'];
+            $ign = $user['ign'];
+            $email = $user['email'];
+            $pass = $user['pass'];
+            $cpass = $user['cpass'];
+            
+            $query = "INSERT INTO users (name, user_name, ign, email, pass) VALUES ('name', 'user_name', 'ign', 'email', 'pass')";
+
+            $result = $conn->query($query);
+        }
+
+        return $invalid_input;
+    }
+
+    function signInUser($conn, $user){
+        $valid_user = false;
+
+        $user_name = $user['user_name'];
+        $pass = $user['pass'];
+        $query = "SELECT * FROM users WHERE user_name = '$user_name' AND pass = '$pass'";
+        $result = $conn->query($query);
+
+        if($result->num_rows > 0){
+            $rows = $result->fetch_all(MYSQLI_ASSOC);
+            $user = $rows[0];
+            $valid_user = true;
+
+            $_SESSION['user'] = $user;
+        }
+
+        return $valid_user;
+    }
 ?>

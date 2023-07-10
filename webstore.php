@@ -2,13 +2,18 @@
   require_once('classes.php');
   session_start();
 
-  if(isset($_POST['signout'])){
-    unset($_SESSION);
+  if(isset($_POST['signIn'])){
+    unset($_POST['signIn']);
+    $_SESSION['valid_user'] = signInUser($conn, $_POST);//Would return true if credentials are correct
+
+    if(!$_SESSION['valid_user']){
+      header('location: signIn.php');
+    }
   }
 
-  elseif(isset($_POST['user'])){
-    $user = new User('Goku');
-    $_SESSION['user'] = $user; 
+  if(isset($_POST['signedOut'])){
+    unset($_SESSION['user']);
+    unset($_POST['signedOut']);
   }
 ?>
 <!DOCTYPE html>
@@ -37,23 +42,24 @@
     </div>
     <div class="nav-right">
       <?php
-      if(!isset($_SESSION['user'])){?>
+      if(!isset($_SESSION['user'])){
+        ?>
         <form action="signIn.php">
-          <input type="submit" class="button green" value="Sign-In">
+          <input type="submit" class="button green" value="Sign-In" name="signIn">
         </form><?php
       }
       else{?>
         <form class ="coin-balance" style="position: relative;">
           <input type="submit" class="addcoin-button" value="">
           <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-          <span style="font-weight: bold; color: #F1C40F;">200</span>
+          <span><?php echo $_SESSION['user']['balance']?></span>
           <img src="assets/PokeCoin.png" class="small-icon">
         </form>
         <form action="cart.php">
           <input type="submit" class="button green" value="Go to cart" >
         </form>
-        <form action="webstore.php">
-          <input type="submit" class="button green" value="Sign out" name="signout">
+        <form action="webstore.php" method="POST" onclick="confirm('Sign out?');">
+          <input type="submit" class="button green" value="Sign out" name="signedOut">
         </form><?php
       }?>
     </div>
@@ -81,7 +87,7 @@
                     }
                     else{?>
                       <form action="signIn.php">
-                        <input type="submit" class="button green" value="Sign-In To Purchase">
+                        <input type="submit" class="button green" value="Sign-In To Purchase" name="signIn">
                       </form><?php
                     }?>
                   </div>

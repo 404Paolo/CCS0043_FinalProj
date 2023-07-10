@@ -20,34 +20,85 @@
     <div class="nav-mid">
     </div>
     <div class="nav-right">
-      <div class="coin-balance" ><img src="assets/PokeCoin.png" class="small-icon">100000 Coins</div>
+      <form class ="coin-balance" style="position: relative;">
+        <input type="submit" class="addcoin-button" value="">
+        <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
+        <span></span>
+        <img src="assets/PokeCoin.png" class="small-icon">
+      </form>
       <button class="button gray" onclick="profilePopup();">404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
         <form  action="" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
         </form>
         <form action="webstore.php" method="POST">
-          <input class="gray" type="submit" action="signIn.php" value="Sign out" name="signout">
+          <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="confirm('Sign out?');">
         </form>
       </div>
     </div>
   </div>
-  <div class="main cart-grid">
+  <div class="main" style="row-gap: 30px;">
     <h1 class="item-title">Order Review</h1>
-    <div class="cart-card">
-      <img class="cartItem-img" src="assets/Beginner_Box.png">
-      <p>Beginner Box</p>
-      <p>&#8369 290.00</p>
+    <div>
+      <h3 style="color:rgb(15, 79, 90);">404Gohan's Balance:</h3>
+      <form class ="coin-balance" style="position: relative; width: 100%;">
+        <input type="submit" class="addcoin-button" value="">
+        <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
+        <span>200.00</span>
+        <img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 10px">
+      </form>
     </div>
-    <div class="cart-card">
-      <img class="cartItem-img" src="assets/Beginner_Box.png">
-      <p>Beginner Box</p>
-      <p>&#8369 290.00</p>
-    </div>
-    <div class="cart-card">
-      <img class="cartItem-img" src="assets/Beginner_Box.png">
-      <p>Beginner Box</p>
-      <p>&#8369 290.00</p>
+    <div class="cart-grid">
+      <div class="card-group">
+        <div class="cart-card">
+          <button class="remove" onclick="confirm('Remove item from cart?');">x</button>
+          <img class="cartItem-img" src="assets/Beginner_Box.png">
+          <div>
+            <p>Beginner Box</p>
+            <p>&#8369 290.00</p>
+          </div>
+        </div>
+        <div class="cart-card">
+          <button class="remove" onclick="confirm('Remove item from cart?');">x</button>
+          <img class="cartItem-img" src="assets/Beginner_Box.png">
+          <div>
+            <p>Beginner Box</p>
+            <p>&#8369 290.00</p>
+          </div>
+        </div>
+        <div class="cart-card">
+          <button class="remove" onclick="confirm('Remove item from cart?');">x</button>
+          <img class="cartItem-img" src="assets/Beginner_Box.png">
+          <div>
+            <p>Beginner Box</p>
+            <p>&#8369 290.00</p>
+          </div>
+        </div>
+        <div class="cart-card">
+          <button class="remove" onclick="confirm('Remove item from cart?');">x</button>
+          <img class="cartItem-img" src="assets/Beginner_Box.png">
+          <div>
+            <p>Beginner Box</p>
+            <p>&#8369 290.00</p>
+          </div>
+        </div>
+        <div class="cart-card">
+          <button class="remove" onclick="confirm('Remove item from cart?');">x</button>
+          <img class="cartItem-img" src="assets/Beginner_Box.png">
+          <div>
+            <p>Beginner Box</p>
+            <p>&#8369 290.00</p>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; column-gap: 25px;">
+        <button class="button gray" style="border: 1px solid rgba(3, 46, 85, 0.8);">
+          Go back
+        </button>
+        <button class="button green">
+          Checkout
+        </button>
+      </div>
     </div>
   </div>
 </body>
