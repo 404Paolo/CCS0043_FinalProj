@@ -612,12 +612,13 @@ form {
   justify-content: space-evenly;
   display: flex;
   flex-wrap: wrap;
-  column-gap: 20px;
+  row-gap: 10px;
 }
 
 .coin-card{
   background-color: white;
-  flex: 1 1 40%;
+  margin: 0px 20px;
+  flex: 1 1 30%;
   width: 40%;
   display: flex;
   flex-wrap: wrap;
@@ -626,13 +627,12 @@ form {
   border-radius: 25px;
   height: 30%;
   box-shadow: 0px 5px 15px rgba(151, 110, 20, 0.137);
-  transition: box-shadow 0.15s, width 0.15s, height 0.15s;
+  transition: box-shadow 0.15s, height 0.15s;
 }
 
 .coin-card:hover{
-  width: 42%;
-  height: 32%;
-  box-shadow: 0px 10px 20px rgba(255, 178, 11, 0.185);
+  height: 31%;
+  box-shadow: 0px 10px 30px rgba(160, 111, 5, 0.185);
   cursor: pointer;
 }
 
@@ -644,10 +644,30 @@ form {
 
 .coin-card .card-body{
   width: 100%;
-  height: 55%;
-  padding: 0;
-  display:
+  height: 45%;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: min-content min-content;
+  justify-content: space-around;
+  justify-items: center;
+  row-gap: 10px;
 }
+
+.coin-card .button{
+  width: auto;
+  height: 40px;
+  border-radius: 20px;
+  color: rgb(214, 170, 24);
+  border: 2px solid rgba(255, 217, 0, 0.288);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.coin-card .button:hover{
+  color: white;
+  background-color: gold;
+  cursor: pointer;
+}
+
 
 .coin-img{
   object-fit: contain;
@@ -663,8 +683,13 @@ form {
   border-radius: 5px 0px 0px 0px;
 }
 
+.coin-card .item-name{
+  font-size: 18px;
+}
+
 .payment-grid{
-  background-color: rgba(0,250,0,0.1);
+  background-color: rgba(246,255,241,255);
   width: 100%;
   height: 100%;
+  border-radius: 25px;
 }
