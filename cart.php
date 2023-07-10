@@ -28,7 +28,7 @@
       </form>
       <button class="button gray" onclick="profilePopup();">404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
-        <form  action="" method="POST">
+        <form  action="profile.php" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
         </form>
         <form action="webstore.php" method="POST">

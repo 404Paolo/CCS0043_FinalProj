@@ -10,10 +10,12 @@ html{
 body {
   margin: 0;
   position: relative;
+  min-height: 500px;
 }
 
 .home-page {
   padding: 120px 20px 350px 20px;
+  height: min-content;
 }
 
 .sign-in-page {
@@ -225,7 +227,7 @@ form {
 
   display: grid;
   width: 100%;
-  height: 100%;
+  height: min-content;
   justify-items: center;
 }
 
@@ -249,21 +251,20 @@ form {
   flex: 1 1 230px;
   flex-wrap: wrap;
   column-gap: 30px;
+  row-gap: 30px;
   justify-content: center;
   align-items: flex-start;
-  row-gap: 30px;
 }
 
 .card {
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
   height: 600px;
   border-radius: 20px;
-  transition: box-shadow .15s;
   width: 100%;
   max-width: 700px;
   background-color: white;
   flex: 360px;
   margin-bottom: 70px;
+  transition: box-shadow .15s;
 }
 
 .card:hover {
@@ -435,8 +436,6 @@ form {
   font-family: 'Lato', sans-serif;
 }
 
-.user-info{
-}
 
 .cart-card{
   background-image: linear-gradient(135deg, rgb(255, 255, 255), rgb(248, 255, 240));
@@ -513,4 +512,159 @@ form {
 
 .remove:hover{
   color: rgba(240, 9, 9, 0.4);
+}
+
+.profile-grid{
+  margin: 50px 0px 0px 0px;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  width: 90%;
+  height: min-content;
+  max-width: 1200px;
+}
+
+.user-info{
+  display: grid;
+  grid-template-rows: repeat(3, min-content);
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  margin-bottom: 30px;
+}
+
+.user-info *{
+  margin: 5px;
+}
+
+.transaction-container{
+  width: 100%;
+  height: min-content;
+  opacity: 0.9;
+  display: grid;
+  grid-template-rows: min-content min-content 1fr;
+}
+
+.transaction-entry{
+  width: 100%;
+  opacity: 0.9;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 15px 10px;
+}
+
+.transaction-entry h4{
+  margin: 10px 0px 10px 0px;
+}
+
+.transaction-rows{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+}
+
+.modal{
+  background-color: rgba(0,0,0,0.4);
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal .remove{
+  font-size: 30px;
+  top: 30px;
+  right: 50px;
+  color:rgb(15, 79, 90);
+  transition: font-size 0.3s, color 0.3s;
+}
+
+.modal .remove:hover{
+  font-size: 35px;
+  color: black;
+}
+
+.coinshop-container{
+  background-color: white;
+  height: 80%;
+  width: 80%;
+  max-width: 1300px;
+  border-radius: 25px;
+  padding: 50px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+.coin-group{
+  margin: 0;
+  padding: 20px;
+  width: 90%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+}
+
+.coin-card{
+  background-color: white;
+  flex: 1 1 40%;
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 25px;
+  height: 30%;
+  box-shadow: 0px 5px 15px rgba(151, 110, 20, 0.137);
+  transition: box-shadow 0.15s, width 0.15s, height 0.15s;
+}
+
+.coin-card:hover{
+  width: 42%;
+  height: 32%;
+  box-shadow: 0px 10px 20px rgba(255, 178, 11, 0.185);
+  cursor: pointer;
+}
+
+.coin-card .card-head{
+  position: relative;
+  padding: 10px;
+  background: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);;
+}
+
+.coin-card .card-body{
+  width: 100%;
+  height: 55%;
+  padding: 0;
+  display:
+}
+
+.coin-img{
+  object-fit: contain;
+  width: 100px;
+}
+
+.price{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: lightpink;
+  width: 35%;
+  border-radius: 5px 0px 0px 0px;
+}
+
+.payment-grid{
+  background-color: rgba(0,250,0,0.1);
+  width: 100%;
+  height: 100%;
 }
