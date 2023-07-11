@@ -20,13 +20,12 @@
     <div class="nav-mid">
     </div>
     <div class="nav-right">
-      <form class ="coin-balance" style="position: relative;">
-        <input type="submit" class="addcoin-button" value="">
+      <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
         <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-        <span></span>
+        <span>200.00</span>
         <img src="assets/PokeCoin.png" class="small-icon">
-      </form>
-      <button class="button gray" onclick="profilePopup();">404Gohan</button>
+      </button>
+      <button class="button gray" onclick='toggleVisibility(".profile-popup")'>404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
         <form  action="" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">

@@ -42,8 +42,8 @@ function displayRegister(){
     document.body.querySelector('.form-container').innerHTML= html;
 }
 
-function profilePopup(){
-    let popup = document.body.querySelector(".profile-popup");
+function toggleVisibility(class_name){
+    let popup = document.body.querySelector(class_name);
     
     popup.style.visibility = popup.style.visibility === 'hidden'?'visible':'hidden';
 }

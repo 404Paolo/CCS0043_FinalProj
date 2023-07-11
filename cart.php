@@ -26,7 +26,7 @@
         <span></span>
         <img src="assets/PokeCoin.png" class="small-icon">
       </form>
-      <button class="button gray" onclick="profilePopup();">404Gohan</button>
+      <button class="button gray" onclick="toggleVisibility('.profile-popup');">404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
         <form  action="profile.php" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">

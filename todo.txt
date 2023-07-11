@@ -1,6 +1,5 @@
-- Transactions
-    - Queries
-- Cart Page
-- Profile Page
-- Footer content
-- Welcome Page
+Backend
+    - transaction Queries
+    - cart functionality
+    - add cart total to cart
+    

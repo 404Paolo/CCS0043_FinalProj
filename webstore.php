@@ -29,6 +29,101 @@
   <title>Document</title>
 </head>
 <body class="home-page">
+<div class="modal" style="visibility:hidden">
+    <div class="coinshop-container">
+      <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
+      <div class="coin-group">
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_Handful.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_Stack.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_Pouch.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_Bucket.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_Box.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+        <div class="coin-card">
+          <div class="card-head">
+            <div class="price">&#8369 200.00</div>
+            <img class="coin-img" src="assets/Coin_heap.png">
+          </div>
+          <div class="card-body">
+            <div class="item-name">
+              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+            </div>
+            <button class="button">
+              Buy coins
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="payment-grid">
+        <h1 style="text-align: center; border-bottom: 1px solid rgba(0,0,0,0.2);
+        padding-bottom: 20px;">Payment</h1>
+      </div>
+    </div>
+  </div>
   <div class="nav">
     <form class="nav-left" action="webstore.php">
       <input type="submit" class="hidden-button" value="">
@@ -49,17 +144,22 @@
         </form><?php
       }
       else{?>
-        <form class ="coin-balance" style="position: relative;">
-          <input type="submit" class="addcoin-button" value="">
+        <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
           <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-          <span><?php echo $_SESSION['user']['balance']?></span>
+          <span>200.00</span>
           <img src="assets/PokeCoin.png" class="small-icon">
-        </form>
+        </button>
+        <button class="button gray" onclick="toggleVisibility('.profile-popup');">404Gohan</button>
+        <div class="profile-popup" style="visibility:hidden;">
+          <form  action="profile.php" method="POST">
+            <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
+          </form>
+          <form action="webstore.php" method="POST">
+            <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="confirm('Sign out?');">
+          </form>
+        </div>
         <form action="cart.php">
           <input type="submit" class="button green" value="Go to cart" >
-        </form>
-        <form action="webstore.php" method="POST" onclick="confirm('Sign out?');">
-          <input type="submit" class="button green" value="Sign out" name="signedOut">
         </form><?php
       }?>
     </div>
@@ -102,4 +202,5 @@
 <div class="footer">
 </div>
 </body>
+<script src="functions.js"></script>
 </html>
