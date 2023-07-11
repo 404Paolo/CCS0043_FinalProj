@@ -135,7 +135,7 @@
 
         public function completeTransaction(){
             if($this->balance >= $this->cart->total){
-                $transaction = new Transaction($this->user_id, $this->generateCartId());
+                $transaction = new Transaction($this->user_id, $this->generateCartId(), $this->cart->total);
                 $this->transactions[] = $transaction;
                 $this->balance -= $this->cart->total;
 
@@ -162,11 +162,13 @@
     class Transaction{
         public $user_id;
         public $cart_id;
+        public $bill;
         public $date;
 
-        public function __construct($user_id = 0, $cart_id = ''){
+        public function __construct($user_id = 0, $cart_id = '',$bill = 0){
             $this->user_id = strval($user_id);
             $this->cart_id = $cart_id;
+            $this->bill = $bill;
             $this->date =  date("Y-m-d H:i:s");
         }
 

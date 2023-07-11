@@ -29,7 +29,7 @@
   <title>Document</title>
 </head>
 <body class="home-page">
-<div class="modal" style="visibility:hidden">
+  <div class="modal" style="visibility:hidden">
     <div class="coinshop-container">
       <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
       <div class="coin-group">
@@ -180,7 +180,15 @@
                 <div class="item-info">
                   <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
                   <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
-                  <div class="item-price"><img src="assets/PokeCoin.png" class="small-icon"><?php echo $raw_inventory[$id]["price"] ?></div>
+                  <div class="item-price"><?php
+                    if($category != "Boxes"){?>
+                      <img src="assets/PokeCoin.png" class="small-icon"><?php
+                    }
+                    else{?>
+                      <p style="margin: 5px; padding-top: 2px;">&#8369 </p><?php
+                    } 
+                    echo $raw_inventory[$id]["price"]?>
+                  </div>
                   <div><?php
                     if(isset($_SESSION['user'])){?>
                       <button class="button green">Add to cart</button><?php

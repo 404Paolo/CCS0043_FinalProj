@@ -1,5 +1,12 @@
 Backend
     - transaction Queries
-    - cart functionality
-    - add cart total to cart
+    - payment functions
+
+Frontend
+    - Implement:
+        - cart feature
+        - register feature
     
+    - Build:
+        - transaction ui
+        - payment page
