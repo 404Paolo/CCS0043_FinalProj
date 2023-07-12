@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2023 at 08:21 AM
+-- Generation Time: Jul 12, 2023 at 02:34 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `webstore`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coins`
+--
+
+CREATE TABLE `coins` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `category` varchar(50) NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coins`
+--
+
+INSERT INTO `coins` (`id`, `name`, `price`, `image`, `category`, `value`) VALUES
+(0, 'Coin Handful', 99, 'assets/Coin_Handful.png', 'Coins', 100),
+(1, 'Coin Stack', 249, 'assets\\Coin_Stack.png', 'Coins', 600),
+(2, 'Coin Pouch', 499, 'assets\\Coin_Pouch.png', 'Coins', 1300),
+(3, 'Coin Bucket', 999, 'assets\\Coin_Bucket.png', 'Coins', 2700),
+(4, 'Coin Box', 1990, 'assets\\Coin_Box.png', 'Coins', 5600),
+(5, 'Coin Heap', 4990, 'assets\\Coin_Heap.png', 'Coins', 15500);
 
 -- --------------------------------------------------------
 
@@ -72,15 +99,9 @@ INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `ca
 (27, 'Trainee Box', 40, 215, 'assets\\Trainee_Box.png', 'Assorted Items', 'Boxes'),
 (28, 'Voyager Box', 20, 1485, 'assets\\Voyager_Box.png', 'Assorted Items', 'Boxes'),
 (29, 'Team Medallion', 1, 1000, 'assets\\Team_Medallion.png', 'Change teams(One-time use)', 'Others'),
-(30, 'Poffin', 100, 100, 'assets\\Poffin.png', 'Boost Pokemon\'s" Conditions', 'Others'),
+(30, 'Poffin', 100, 100, 'assets\\Poffin.png', 'Boost Pokemon\'s\" Conditions', 'Others'),
 (31, 'Star Piece x1', 100, 80, 'assets\\Star_Piece.png', 'Stardust boost', 'Others'),
-(32, 'Star Piece x8', 20, 640, 'assets\\Star_Piece8.png', 'Stardust boost', 'Others'),
-(33, 'Coin Handful', 100, 29, 'assets\\Coin_Handful.png', '100 Pokecoins', 'Coins'),
-(34, 'Coin Stack', 100, 249, 'assets\\Coin_Stack.png', '500 Pokecoins', 'Coins'),
-(35, 'Coin Pouch', 100, 499, 'assets\\Coin_Pouch.png', '1200 Pokecoins', 'Coins'),
-(36, 'Coin Bucket', 100, 999, 'assets\\Coin_Bucket.png', '2500 Pokecoins', 'Coins'),
-(37, 'Coin Box', 100, 1990, 'assets\\Coin_Box.png', '5200 Pokecoins', 'Coins'),
-(38, 'Coin Heap', 100, 4990, 'assets\\Coin_Heap.png', '14500 Pokecoins', 'Coins');
+(32, 'Star Piece x8', 20, 640, 'assets\\Star_Piece8.png', 'Stardust boost', 'Others');
 
 -- --------------------------------------------------------
 
@@ -91,7 +112,8 @@ INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `ca
 CREATE TABLE `transactions` (
   `user_id` int(11) NOT NULL,
   `cart_id` varchar(50) NOT NULL,
-  `transaction_date` date NOT NULL
+  `transaction_date` date NOT NULL,
+  `bill` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -106,19 +128,26 @@ CREATE TABLE `users` (
   `user_name` varchar(50) NOT NULL,
   `ign` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `pass` varchar(50) NOT NULL
+  `pass` varchar(50) NOT NULL,
+  `balance` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `name`, `user_name`, `ign`, `email`, `pass`) VALUES
-(1, 'Christian Paolo Reyes', '404_Paolo', 'Tupac', 'cpaolo852@gmail.com', '00000000');
+INSERT INTO `users` (`user_id`, `name`, `user_name`, `ign`, `email`, `pass`, `balance`) VALUES
+(1, 'Christian Paolo Reyes', '404_Paolo', 'Tupac', 'cpaolo852@gmail.com', '00000000', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `coins`
+--
+ALTER TABLE `coins`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `items`
