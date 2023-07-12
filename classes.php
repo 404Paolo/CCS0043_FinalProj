@@ -1,10 +1,16 @@
 <?php   
-    //Getting items from database and storing in an array "$inventory"
+    //Getting items from database and storing in an array "$raw_inventory"
     require_once("connection.php");
     $query = "SELECT * FROM items";
     $result = $conn->query($query);
     $raw_inventory = $result->fetch_all(MYSQLI_ASSOC);
     $inventory = array();
+
+    //Getting coins form database and storing in array "$coin_inventory"
+    $query = "SELECT * FROM coins";
+    $result = $conn->query($query);
+    $coin_inventory = $result->fetch_all(MYSQLI_ASSOC);
+
     //Organizes sql result into categories
     foreach($raw_inventory as $key=>$item){
       $category = $item['category'];
@@ -54,6 +60,8 @@
 
         public function getPass(){return $this->pass;}
         // public function setPass($newPass){$this->pass = $newPass;}
+
+        public function getTransactions(){return $this->transactions;}
 
         public function displayCart(){
             echo "<pre>";
@@ -147,6 +155,15 @@
                 echo 'Sorry, you have insufficient balance to complete this transactions';
             }
         }
+
+        public function completePayment($bill){
+            $bill = $bill." Pesos";
+            $transaction = new Transaction($this->user_id, $this->generateCartId(), $bill);
+            $this->transactions[] = $transaction;
+            $this->balance -= $this->cart->total;
+            $this->cart->items = array();
+            $this->cart->total = 0;
+        }
     }
 
     class Cart{ 
@@ -165,15 +182,11 @@
         public $bill;
         public $date;
 
-        public function __construct($user_id = 0, $cart_id = '',$bill = 0){
+        public function __construct($user_id = 0, $cart_id = '',$bill = ''){
             $this->user_id = strval($user_id);
             $this->cart_id = $cart_id;
             $this->bill = $bill;
-            $this->date =  date("Y-m-d H:i:s");
-        }
-
-        public function generateTransactionID(){
-            return $this->user_id.'_'.$this->cart_id.'_'.$this->date;
+            $this->date = date("Y-m-d H:i:s");
         }
     }
 

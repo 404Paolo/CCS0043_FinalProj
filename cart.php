@@ -20,12 +20,11 @@
     <div class="nav-mid">
     </div>
     <div class="nav-right">
-      <form class ="coin-balance" style="position: relative;">
-        <input type="submit" class="addcoin-button" value="">
-        <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-        <span></span>
+      <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
+        <p style="margin: 5px;">&#43</p>
+        <p style="margin: 5px;">200.00</p>
         <img src="assets/PokeCoin.png" class="small-icon">
-      </form>
+      </button>
       <button class="button gray" onclick="toggleVisibility('.profile-popup');">404Gohan</button>
       <div class="profile-popup" style="visibility:hidden;">
         <form  action="profile.php" method="POST">
@@ -41,12 +40,11 @@
     <h1 class="item-title">Order Review</h1>
     <div>
       <h3 style="color:rgb(15, 79, 90);">404Gohan's Balance:</h3>
-      <form class ="coin-balance" style="position: relative; width: 100%;">
-        <input type="submit" class="addcoin-button" value="">
-        <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-        <span>200.00</span>
-        <img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 10px">
-      </form>
+      <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
+          <p style="margin: 5px;">&#43</p>
+          <p style="margin: 5px;">200.00</p>
+          <img src="assets/PokeCoin.png" class="small-icon">
+      </button>
     </div>
     <div class="cart-grid">
       <div class="card-group">

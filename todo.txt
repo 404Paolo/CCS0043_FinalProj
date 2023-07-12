@@ -6,7 +6,12 @@ Frontend
     - Implement:
         - cart feature
         - register feature
+        - loop coinshop, 
     
     - Build:
         - transaction ui
         - payment page
+
+
+    -Once done:
+        - make everything responsive

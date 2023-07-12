@@ -32,91 +32,25 @@
   <div class="modal" style="visibility:hidden">
     <div class="coinshop-container">
       <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
-      <div class="coin-group">
+      <div class="coin-group"><?php
+        foreach($coin_inventory as $coin){?>
         <div class="coin-card">
           <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_Handful.png">
+            <div class="price">&#8369 <?php echo $coin['price'];?></div>
+            <img class="coin-img" src="<?php echo $coin['image'];?>">
           </div>
           <div class="card-body">
             <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
+              <?php echo $coin['name'];?>:
+              <p style="margin-left:10px;"><?php echo $coin['value'];?></p>
+              <img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
             </div>
             <button class="button">
-              Buy coins
+              Buy
             </button>
           </div>
-        </div>
-        <div class="coin-card">
-          <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_Stack.png">
-          </div>
-          <div class="card-body">
-            <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
-            </div>
-            <button class="button">
-              Buy coins
-            </button>
-          </div>
-        </div>
-        <div class="coin-card">
-          <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_Pouch.png">
-          </div>
-          <div class="card-body">
-            <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
-            </div>
-            <button class="button">
-              Buy coins
-            </button>
-          </div>
-        </div>
-        <div class="coin-card">
-          <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_Bucket.png">
-          </div>
-          <div class="card-body">
-            <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
-            </div>
-            <button class="button">
-              Buy coins
-            </button>
-          </div>
-        </div>
-        <div class="coin-card">
-          <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_Box.png">
-          </div>
-          <div class="card-body">
-            <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
-            </div>
-            <button class="button">
-              Buy coins
-            </button>
-          </div>
-        </div>
-        <div class="coin-card">
-          <div class="card-head">
-            <div class="price">&#8369 200.00</div>
-            <img class="coin-img" src="assets/Coin_heap.png">
-          </div>
-          <div class="card-body">
-            <div class="item-name">
-              Coin Handful - <span style=>100</span><img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
-            </div>
-            <button class="button">
-              Buy coins
-            </button>
-          </div>
-        </div>
+        </div><?php
+        }?>
       </div>
       <div class="payment-grid">
         <h1 style="text-align: center; border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -145,8 +79,8 @@
       }
       else{?>
         <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
-          <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-          <span>200.00</span>
+          <p style="margin: 5px;">&#43</p>
+          <p style="margin: 5px;">200.00</p>
           <img src="assets/PokeCoin.png" class="small-icon">
         </button>
         <button class="button gray" onclick="toggleVisibility('.profile-popup');">404Gohan</button>
@@ -165,50 +99,48 @@
     </div>
   </div>
   <div class="main store-grid"><?php
-    foreach($inventory as $category=>$item)
-    {?>
+    foreach($inventory as $category=>$item){?>
       <div class="item-section">
         <h1 class="item-title"><?php echo $category ?></h1>
         <div class="card-group"><?php
-          foreach($item as $id)
-          {?>
-            <div class="card">
-              <div class="card-head pink">
-                <img class="item-img" src="<?php echo $raw_inventory[$id]["image"];?>">
-              </div>
-              <div class="card-body">
-                <div class="item-info">
-                  <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
-                  <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
-                  <div class="item-price"><?php
-                    if($category != "Boxes"){?>
-                      <img src="assets/PokeCoin.png" class="small-icon"><?php
-                    }
-                    else{?>
-                      <p style="margin: 5px; padding-top: 2px;">&#8369 </p><?php
-                    } 
-                    echo $raw_inventory[$id]["price"]?>
-                  </div>
-                  <div><?php
-                    if(isset($_SESSION['user'])){?>
-                      <button class="button green">Add to cart</button><?php
-                    }
-                    else{?>
-                      <form action="signIn.php">
-                        <input type="submit" class="button green" value="Sign-In To Purchase" name="signIn">
-                      </form><?php
-                    }?>
-                  </div>
+        foreach($item as $id){?>
+          <div class="card">
+            <div class="card-head pink">
+              <img class="item-img" src="<?php echo $raw_inventory[$id]["image"];?>">
+            </div>
+            <div class="card-body">
+              <div class="item-info">
+                <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
+                <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
+                <div class="item-price"><?php
+                  if($category != "Boxes"){?>
+                    <img src="assets/PokeCoin.png" class="small-icon"><?php
+                  }
+                  else{?>
+                    <p style="margin: 5px; padding-top: 2px;">&#8369 </p><?php
+                  } 
+                  echo $raw_inventory[$id]["price"]?>
+                </div>
+                <div><?php
+                  if(isset($_SESSION['user'])){?>
+                    <button class="button green">Add to cart</button><?php
+                  }
+                  else{?>
+                    <form action="signIn.php">
+                      <input type="submit" class="button green" value="Sign-In To Purchase" name="signIn">
+                    </form><?php
+                  }?>
                 </div>
               </div>
-            </div><?php
-          }?>
+            </div>
+          </div><?php
+        }?>
         </div>
       </div><?php
     }?>
   </div>
-<div class="footer">
-</div>
+  <div class="footer">
+  </div>
 </body>
 <script src="functions.js"></script>
 </html>
