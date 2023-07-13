@@ -31,8 +31,7 @@
         private $balance;
         public $cart;
 
-        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $balance = 0, $pass = '', $cart = new Cart(), $transactions = array())
-        {
+        public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $balance = 0, $pass = '', $cart = new Cart(), $transactions = array()){
             $this->user_id = $user_id;
             $this->name = $name;
             $this->ign = $ign;
@@ -41,6 +40,7 @@
             $this->cart = $cart;
             $this->balance = $balance;
             $this->transactions = $transactions;
+            foreach()
         }
 
         public function getID(){return $this->user_id;}
@@ -79,7 +79,14 @@
             }
         }
 
-        public function getTransactions(){return $this->transactions;}
+        public function getTransactions(){
+            global $conn;
+            $query = "SELECT * FROM transactions;";
+            $result = $conn->query($query);
+            $result->fetch_all(MYSQLI_ASSOC);
+
+            return $result;
+        }
 
         public function displayCart(){
             echo "<pre>";
@@ -132,7 +139,6 @@
             global $raw_inventory;
             $base = count($raw_inventory);
             $num = 0;
-            $items = array();
             $len = count($this->cart->items);
 
             foreach($this->cart->items as $n=>$id){
@@ -243,7 +249,8 @@
         }
     }
 
-    function registerUser($conn){
+    function registerUser(){
+        global $conn;
         $user = $_POST;
         $invalid_input = 0;
         $regex = array(
@@ -255,9 +262,13 @@
             "cpass" => "/^.{8,}$/"
         );
 
-        $alert_message = "Invalid inputs for";
+        if($user['pass'] != $user['cpass']){
+            return "User not registered: Password confirmation failed";
+        }
+
+        $alert_message = "User not registered: Invalid inputs for";
         foreach ($user as $key=>$value){
-            if(!preg_match($regex[$key], $value)){
+            if(!preg_match($regex[$key], $value)){  
                 $alert_message .= " -$key";
                 $invalid_input += 1;
             }
@@ -270,17 +281,15 @@
             $ign = $user['ign'];
             $email = $user['email'];
             $pass = $user['pass'];
-            $cpass = $user['cpass'];
-            
             $query = "INSERT INTO users (name, user_name, ign, email, pass) VALUES ('$name', '$user_name', '$ign', '$email', '$pass')";
-
-            $result = $conn->query($query);
+            $conn->query($query);
         }
 
-        return $invalid_input;
+        return $alert_message;
     }
 
-    function signInUser($conn, $user){
+    function signInUser($user){
+        global $conn;
         $valid_user = false;
 
         $user_name = $user['user_name'];
@@ -293,7 +302,7 @@
             $user = $rows[0];
             $valid_user = true;
 
-            $_SESSION['user'] = $user;
+            $_SESSION['user'] = new User($user['user_id'],$user['name'],$user['email'],$user['ign'],$user['user_name'],$user['balance'],$user['pass']);
         }
 
         return $valid_user;

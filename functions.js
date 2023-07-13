@@ -29,14 +29,14 @@ function displayRegister(){
             Register
         </button>
     </div>
-    <form class="input-grid" action="welcome.php" method="POST" style="grid-template-rows: repeat(6, 50px);"> 
+    <form class="input-grid" action="main.php" method="POST" style="grid-template-rows: repeat(6, 50px);"> 
         <input type="text" name="name" id="name" placeholder="Full name" required>
         <input type="text" name="user_name" id="user_name" placeholder="User name" required>
-        <input type="text" name="ign" id="ign" placeholder="Player id ####-####-####" required>
+        <input type="text" name="ign" id="ign" placeholder="Player id   ####-####-####" required>
         <input type="text" name="email" id="email" placeholder="Email address" required>
         <input type="password" name="pass" id="pass" placeholder="Password (at least 8 characters)" required>
         <input type="password" name="cpass" id="cpass" placeholder="Confirm your password" required>
-        <input type="submit" class="button green" name="register">
+        <input type="submit" class="button green">
     </form>`;
 
     document.body.querySelector('.form-container').innerHTML= html;

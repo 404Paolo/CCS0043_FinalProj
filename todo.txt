@@ -1,16 +1,18 @@
 Backend
     - payment functions
-    -register query
+    - register query
 
 Frontend
     - Implement:
         - cart feature
         - register feature
-        - loop coinshop, 
     
     - Build:
         - transaction ui
         - payment page
+    
+    - Add:
+        - to profile page (change pass, display other info)
 
 
     -Once done:
