@@ -40,7 +40,6 @@
             $this->cart = $cart;
             $this->balance = $balance;
             $this->transactions = $transactions;
-            foreach()
         }
 
         public function getID(){return $this->user_id;}
