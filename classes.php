@@ -44,22 +44,40 @@
         }
 
         public function getID(){return $this->user_id;}
-        // public function setID($newID){$this->user_id = $newID;}
 
         public function getName(){return $this->name;}
-        // public function setName($newName){$this->name = $newName;}
 
         public function getEmail(){return $this->email;}
-        // public function setEmail($newEmail){$this->email = $newEmail;}
 
         public function getIGN(){return $this->ign;}
-        // public function setIGN($newIGN){$this->ign = $newIGN;}
 
         public function getUName(){return $this->user_name;}
-        // public function setUName($newUname){$this->user_name = $newUname;}
 
         public function getPass(){return $this->pass;}
-        // public function setPass($newPass){$this->pass = $newPass;}
+        public function changePass($oldpass, $newpass, $confirmpass){
+            global $conn;
+            if($oldpass == $this->pass){
+                if(strlen($newpass) >= 8 && $newpass != $oldpass){
+                    if($newpass == $confirmpass){
+                        $query = "UPDATE users SET pass = '$newpass' WHERE user_name = '$this->user_name'";
+                        $conn->query($query);
+
+                        return "Password successfully changed";
+                    }
+
+                    else{
+                        return "New password confirmation failed";
+                    }
+                }
+                else{
+                    return "Password should be atleast 8 characters long, and not equal to old password";
+                }
+            }
+
+            else{
+                return "Wrong password";
+            }
+        }
 
         public function getTransactions(){return $this->transactions;}
 
@@ -144,9 +162,9 @@
         public function completeTransaction(){
             if($this->balance >= $this->cart->total){
                 $transaction = new Transaction($this->user_id, $this->generateCartId(), $this->cart->total);
+                $transaction->complete();
                 $this->transactions[] = $transaction;
                 $this->balance -= $this->cart->total;
-
                 $this->cart->items = array();
                 $this->cart->total = 0;
             }
@@ -188,6 +206,13 @@
             $this->bill = $bill;
             $this->date = date("Y-m-d H:i:s");
         }
+
+        public function complete(){
+            global $conn;
+            $query = "INSERT INTO transactions (user_id, cart_id, transaction_date, bill)
+                      VALUES ($this->user_id, '$this->cart_id', '$this->date', $this->bill);";
+            $conn->query($query);
+        }
     }
 
     //Search function
@@ -224,7 +249,7 @@
         $regex = array(
             "name" => "/^[a-zA-Z_\s'\.]*$/",
             "user_name" => "/^[a-zA-Z0-9#!\?\*_\s'-\.]+$/",
-            "ign" => "/^[a-zA-Z0-9#!\?\*_\s'-\.]+$/",
+            "ign" => "/^\d{4}-\d{4}-\d{4}$/",
             "email" => "/^[a-zZ-a0-9._]+@[a-zA-Z0-9.-]+[\.][a-zA-Z]{2,}$/",
             "pass" => "/^.{8,}$/",    
             "cpass" => "/^.{8,}$/"
@@ -247,7 +272,7 @@
             $pass = $user['pass'];
             $cpass = $user['cpass'];
             
-            $query = "INSERT INTO users (name, user_name, ign, email, pass) VALUES ('name', 'user_name', 'ign', 'email', 'pass')";
+            $query = "INSERT INTO users (name, user_name, ign, email, pass) VALUES ('$name', '$user_name', '$ign', '$email', '$pass')";
 
             $result = $conn->query($query);
         }

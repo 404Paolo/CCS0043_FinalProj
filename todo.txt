@@ -1,6 +1,6 @@
 Backend
-    - transaction Queries
     - payment functions
+    -register query
 
 Frontend
     - Implement:
