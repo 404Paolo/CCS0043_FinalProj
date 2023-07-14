@@ -48,7 +48,7 @@ function toggleVisibility(class_name){
     popup.style.visibility = popup.style.visibility === 'hidden'?'visible':'hidden';
 }
 
-function callPhp(functionName, param = 0) {
+function callPhp(functionName, param = 0){
     $.ajax({
         url: "functions.php",
         type: "POST",
@@ -81,11 +81,22 @@ function callPhp(functionName, param = 0) {
     });
 }
 
-function notify(message, duration) {
-    alert(message);
-  
-    setTimeout(function() {
-      var alertBox = document.querySelector(".alert");
-      alertBox.style.display = "none";
-    }, duration);
-}
+let gcashInput = document.querySelector(".gcash-number");
+let payButton = document.querySelector(".pay-button");
+
+gcashInput.addEventListener("input", function() {
+    let gcashNumber = gcashInput.value.trim();
+    let isValid = /^09\d{9}$/.test(gcashNumber);
+    
+    if (isValid){
+        payButton.disabled = false;
+        payButton.style.opacity = "1";
+        payButton.style.pointerEvents = "auto";
+    }
+    
+    else{
+        payButton.disabled = true;
+        payButton.style.opacity = "0.5";
+        payButton.style.pointerEvents = "none"; 
+    }
+});
