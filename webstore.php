@@ -4,15 +4,16 @@
 
   if(isset($_POST['signIn'])){
     unset($_POST['signIn']);
-    $_SESSION['valid_user'] = signInUser($conn, $_POST);//Would return true if credentials are correct
+    $_SESSION['valid_user'] = signInUser($_POST);
 
     if(!$_SESSION['valid_user']){
       header('location: signIn.php');
     }
   }
 
-  if(isset($_POST['signedOut'])){
+  elseif(isset($_POST['signedOut'])){
     unset($_SESSION['user']);
+    unset($_SESSION['valid_user']);
     unset($_POST['signedOut']);
   }
 ?>
@@ -29,6 +30,7 @@
   <title>Document</title>
 </head>
 <body class="home-page">
+
   <div class="modal" style="visibility:hidden">
     <div class="coinshop-container">
       <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
@@ -58,6 +60,7 @@
       </div>
     </div>
   </div>
+
   <div class="nav">
     <form class="nav-left" action="webstore.php">
       <input type="submit" class="hidden-button" value="">
@@ -77,23 +80,25 @@
           <input type="submit" class="button green" value="Sign-In" name="signIn">
         </form><?php
       }
-      else{?>
+      else{
+        ?>
         <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
           <p style="margin: 5px;">&#43</p>
-          <p style="margin: 5px;">200.00</p>
+          <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
           <img src="assets/PokeCoin.png" class="small-icon">
         </button>
-        <button class="button gray" onclick="toggleVisibility('.profile-popup');">404Gohan</button>
+        <button class="button gray" onclick="toggleVisibility('.profile-popup');"><?php echo $_SESSION['user']->getUname();?></button>
         <div class="profile-popup" style="visibility:hidden;">
           <form  action="profile.php" method="POST">
             <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
           </form>
           <form action="webstore.php" method="POST">
-            <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="confirm('Sign out?');">
+            <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="alert('This will remove all items in your cart');">
           </form>
         </div>
         <form action="cart.php">
           <input type="submit" class="button green" value="Go to cart" >
+          <span id="cartCount" class="cart-count"><?php echo $_SESSION['user']->getCartCount(); ?></span>
         </form><?php
       }?>
     </div>
@@ -123,7 +128,9 @@
                 </div>
                 <div><?php
                   if(isset($_SESSION['user'])){?>
-                    <button class="button green">Add to cart</button><?php
+                    <button class="button green" onclick="callPhp('addToCart',<?php echo $id?>); notify('Item added to cart!', 1)">
+                      Add to cart
+                    </button><?php
                   }
                   else{?>
                     <form action="signIn.php">
@@ -143,4 +150,8 @@
   </div>
 </body>
 <script src="functions.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  let cartCount = <?php echo (isset($_SESSION['user']))? $_SESSION['user']->getCartCount(): 0; ?>
+</script>
 </html>

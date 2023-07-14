@@ -1,4 +1,9 @@
-<?php session_start() ?>
+<?php
+    session_start();
+    require_once("classes.php");
+    $result = registerUser();
+    print_r($result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +20,8 @@
 <body class="sign-in-page" style="padding: 0; justify-content: center;">
     <div class="form-container">
         <h1 style="text-align: center;">Welcome!</h1>
-        <form class="input-grid" action="webstore.php" method="POST">
-            <input type="submit" class="button green" name="signIn" value="Start shopping">
+        <form class="input-grid" action="webstore.php">
+            <input type="submit" class="button green" value="Start shopping">
         </form>
     </div>
 </body>

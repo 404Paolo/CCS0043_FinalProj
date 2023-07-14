@@ -1,15 +1,19 @@
 <?php
   require_once('classes.php');
+  session_start();
   //$result = registerUser($_POST);
-  //print($result);
-  $user = new User(1,'Goku1','test@gmail.com','404Gohan','404Gohan',10000,'00000000');
+  print_r($_POST);
 
-  // echo "<pre>";
+  // $user = new User(1,'Goku1','test@gmail.com','404Gohan','404Gohan',10000,'00000000');
   // $user->addtoCart(1);
   // $user->addtoCart(2);
   // $user->addtoCart(3);
   // $user->addtoCart(4);
   // $user->addtoCart(5);
+
+  // $user->displayCart();
+  // $user->removeFromCart(1);
+  // $user->displayCart();
   // $user->completeTransaction(); 
   // $user->displayTransactions();
   // $user->addtoCart(6);

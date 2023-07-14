@@ -29,7 +29,7 @@ function displayRegister(){
             Register
         </button>
     </div>
-    <form class="input-grid" action="main.php" method="POST" style="grid-template-rows: repeat(6, 50px);"> 
+    <form class="input-grid" action="validateUser.php" method="POST" style="grid-template-rows: repeat(6, 50px);"> 
         <input type="text" name="name" id="name" placeholder="Full name" required>
         <input type="text" name="user_name" id="user_name" placeholder="User name" required>
         <input type="text" name="ign" id="ign" placeholder="Player id   ####-####-####" required>
@@ -46,4 +46,46 @@ function toggleVisibility(class_name){
     let popup = document.body.querySelector(class_name);
     
     popup.style.visibility = popup.style.visibility === 'hidden'?'visible':'hidden';
+}
+
+function callPhp(functionName, param = 0) {
+    $.ajax({
+        url: "functions.php",
+        type: "POST",
+        data: {functionName, param},
+        success: function(response) {
+            if(response === 'added'){
+                cartCount++;
+                document.body.querySelector('.cart-count').innerHTML= cartCount;
+            }
+
+            else if(response === 'removed' || response === 'removedAll'){
+                location.reload();
+                console.log('response');
+            }
+            
+            else if(response === 'transacted'){
+                
+                console.log(response);
+            }
+
+            else if(response === 'paid'){
+                
+                console.log(response);
+            }
+
+            else{
+                console.log(response);
+            }
+        },
+    });
+}
+
+function notify(message, duration) {
+    alert(message);
+  
+    setTimeout(function() {
+      var alertBox = document.querySelector(".alert");
+      alertBox.style.display = "none";
+    }, duration);
 }

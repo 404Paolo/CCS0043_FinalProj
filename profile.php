@@ -1,6 +1,9 @@
+<?php
+  require_once("classes.php");
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,10 +27,10 @@
     <div class="nav-right">
       <button class="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
         <p style="margin: 5px;">&#43</p>
-        <p style="margin: 5px;">200.00</p>
+        <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
         <img src="assets/PokeCoin.png" class="small-icon">
       </button>
-      <button class="button gray" onclick='toggleVisibility(".profile-popup")'>404Gohan</button>
+      <button class="button gray" onclick='toggleVisibility(".profile-popup")'><?php echo $_SESSION['user']->getUname();?></button>
       <div class="profile-popup" style="visibility:hidden;">
         <form action="" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
@@ -41,14 +44,20 @@
   <div class="main">
     <div class="profile-grid" style="color:rgb(15, 79, 90)">
       <div class="user-info">
-        <h2>404Gohan</h2>
+        <h2><?php echo $_SESSION['user']->getUname();?></h2>
         <h3 style="display: flex; align-items: center;">
           Balance:
           <img src="assets/PokeCoin.png" class="small-icon">
-          <span style="font-size: 16px; margin: 10px 0px 8px 0px; color: gold;">200 PokeCoins</span>
+          <span style="font-size: 16px; margin: 10px 0px 8px 0px; color: gold;"><?php echo $_SESSION['user']->getBalance();?> PokeCoins</span>
         </h3>
-        <form action="webstore.php" method="POST" style="justify-content: flex-start;" onclick="confirm('Sign out?');">
-          <input type="submit" class="button gray" value="Sign out" name="signedOut" style="border: solid 1px;">
+        <h3>Full name: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getName();?></span></h3>
+        <h3>Player id: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getIGN();?></span></h3>
+        <h3>Email: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getEmail();?></span></h3>
+        <form action="webstore.php" method="POST" style="justify-content: flex-start;">
+          <input type="submit" class="button gray" value="Sign out" name="signedOut" style="border: solid 1px;"  onclick="confirm('Sign out?');">
+          <form action="signIn.php" method="POST" style="justify-content: flex-start;">
+            <input type="submit" class="button gray" value="Change password" style="border: solid 1px;">
+          </form>
         </form>
       </div>
       <div class="transaction-container">

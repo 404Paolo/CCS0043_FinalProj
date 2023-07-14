@@ -30,7 +30,8 @@
             <input type="submit" class="button green" name="signIn">
         </form>
     </div><?php
-    if(isset($_SESSION['valid_user']) && $_SESSION['valid_user'] == false){?>
+    if(isset($_SESSION['valid_user']) && $_SESSION['valid_user'] == false){
+        unset($_SESSION['valid_user']);?>
         <p class="alert">Sorry invalid credentials</p><?php
     }?>
 </body>

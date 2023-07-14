@@ -1,17 +1,14 @@
 <?php   
-    //Getting items from database and storing in an array "$raw_inventory"
     require_once("connection.php");
     $query = "SELECT * FROM items";
     $result = $conn->query($query);
     $raw_inventory = $result->fetch_all(MYSQLI_ASSOC);
     $inventory = array();
 
-    //Getting coins form database and storing in array "$coin_inventory"
     $query = "SELECT * FROM coins";
     $result = $conn->query($query);
     $coin_inventory = $result->fetch_all(MYSQLI_ASSOC);
 
-    //Organizes sql result into categories
     foreach($raw_inventory as $key=>$item){
       $category = $item['category'];
   
@@ -36,6 +33,7 @@
             $this->name = $name;
             $this->ign = $ign;
             $this->user_name = $user_name;
+            $this->email = $email;
             $this->pass = $pass;
             $this->cart = $cart;
             $this->balance = $balance;
@@ -43,16 +41,13 @@
         }
 
         public function getID(){return $this->user_id;}
-
         public function getName(){return $this->name;}
-
         public function getEmail(){return $this->email;}
-
         public function getIGN(){return $this->ign;}
-
         public function getUName(){return $this->user_name;}
-
+        public function getBalance(){return $this->balance;}
         public function getPass(){return $this->pass;}
+        public function getCartCount(){return count($this->cart->items);}
         public function changePass($oldpass, $newpass, $confirmpass){
             global $conn;
             if($oldpass == $this->pass){
@@ -122,15 +117,24 @@
             }
         } 
         
-        public function removefromCart($id){
+        public function removeFromCart($search_id){
             global $raw_inventory;
-            foreach($this->cart->items as $i=>$item_id){
-                if($item_id == $id){
-                    unset($this->cart->items[$i]);
+            foreach($this->cart->items as $key=>$id){
+                if($search_id == $id){
+                    unset($this->cart->items[$key]);
                     $this->cart->total -= $raw_inventory[$id]["price"];
                     $raw_inventory[$id]["stock"] += 1;
                     break;
                 }
+            }
+        }
+
+        public function removeAllFromCart(){
+            global $raw_inventory;
+            foreach($this->cart->items as $key=>$id){
+                unset($this->cart->items[$key]);
+                $this->cart->total -= $raw_inventory[$id]["price"];
+                $raw_inventory[$id]["stock"] += 1;
             }
         }
 
@@ -282,6 +286,9 @@
             $pass = $user['pass'];
             $query = "INSERT INTO users (name, user_name, ign, email, pass) VALUES ('$name', '$user_name', '$ign', '$email', '$pass')";
             $conn->query($query);
+            $alert_message = "User successfully registered!";
+
+            signInUser($user);
         }
 
         return $alert_message;
@@ -289,8 +296,6 @@
 
     function signInUser($user){
         global $conn;
-        $valid_user = false;
-
         $user_name = $user['user_name'];
         $pass = $user['pass'];
         $query = "SELECT * FROM users WHERE user_name = '$user_name' AND pass = '$pass'";
@@ -299,11 +304,17 @@
         if($result->num_rows > 0){
             $rows = $result->fetch_all(MYSQLI_ASSOC);
             $user = $rows[0];
-            $valid_user = true;
 
             $_SESSION['user'] = new User($user['user_id'],$user['name'],$user['email'],$user['ign'],$user['user_name'],$user['balance'],$user['pass']);
+            return true;
         }
 
-        return $valid_user;
+        else{
+            return false;
+        }
+    }
+
+    function signOut(){
+        unset($_SESSION['user']);
     }
 ?>
