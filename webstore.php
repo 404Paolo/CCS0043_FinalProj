@@ -110,7 +110,7 @@
       </div><?php
     }?>
   </div>
-  <div class="modal" style="visibility: ;">
+  <div class="modal" style="visibility: hidden;">
     <div class="coinshop-container">
       <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
       <div class="coin-group">
@@ -148,14 +148,41 @@
           </h1>
           <h4>User name: <span style="font-weight: 400;">
               <?php echo $_SESSION['user']->getUName(); ?>
-            </span></h2>
-            <h4>Player id: <span style="font-weight: 400;">
-                <?php echo $_SESSION['user']->getIGN(); ?>
-              </span></h4>
-            <h4>Email: <span style="font-weight: 400;">
-                <?php echo $_SESSION['user']->getEmail(); ?>
-              </span></h4>
-            <div class="payment-computation">
+          </span></h2>
+          <h4>Player id: <span style="font-weight: 400;">
+              <?php echo $_SESSION['user']->getIGN(); ?>
+            </span>
+          </h4>
+          <h4>Email: <span style="font-weight: 400;">
+              <?php echo $_SESSION['user']->getEmail(); ?>
+            </span>
+          </h4><?php 
+          $coins = $_SESSION['user']->coin_cart;
+          $totalPesos = $_SESSION['user']->coin_cart->total;
+          if(!count($coins)){?>
+            <h3 style="text-align: center; margin-top: 20px;">
+              <pre>
+                <?php echo print_r($coins);?>
+              </pre>
+            </h3><?php
+          }
+
+          else{?>          
+            <div class="payment-computation"><?php
+              $totalPokecoins = 0;
+              foreach($coins as $coin){?>
+                <div class="payment-entry">
+                  <h5><?php echo $coin['name'];?></h5>
+                  <h5 style="font-weight: 400;"><?php echo $coin['value']." Pokecoins";?></h5> 
+                  <h5 style="font-weight: 400;"><?php echo "&#8369 ".$coin['price'];?></h5> 
+                </div><?php
+                $totalPokecoins += $coin['value'];
+              }?>
+                <div class="payment-entry">
+                  <h4>Total</h4>
+                  <h4><?php echo $totalPokecoins." Pokecoins";?></h4> 
+                  <h4><?php echo "&#8369 ".$totalPesos; ?></h4> 
+                </div>
             </div>
             <div class="input-grid" style="align-content: center; justify-content: center;">
               <input class="gcash-number" type="text" placeholder="Gcash number ex. 09#########" style="margin: 0;" >
@@ -165,12 +192,13 @@
                   Cancel
                 </button>
                 <button type="text" class="button green pay-button" style="width: 49%; pointer-events: none; opacity: 0.5;" disabled="true";
-                  onclick="if(confirm('Proceed with checkout?')){}">
+                  onclick="if(confirm('Proceed with checkout?')){callPhp('completePayment');}">
                   <img src="assets/GCash-Logo.png" class="small icon" style="margin-right: 5px;">
                   &#8369 300
                 </button>
               </div>
-            </div>
+            </div><?php
+          }?>
         </div>
         <div class="coin-balance">
           <h1 style="margin: 5px;">

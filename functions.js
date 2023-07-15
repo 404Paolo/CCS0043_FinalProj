@@ -78,18 +78,19 @@ function callPhp(functionName, param = 0){
             }
 
             else if(response === 'coin added'){
-                location.reload;
-                alert('Procceed to checkout to add Pokecoins');
+                alert('Added to cart');
                 document.querySelector(modal).style.visibility = "";
+                location.reload();
             }
 
             else if(response === 'coin not added'){
-                alert('Sorry, only 3 coin items can be purchased at a time');
+                alert('Sorry, only 4 coin items can be purchased at a time');
             }
 
             else if(response === 'paid'){
                 location.reload();
                 alert('Pokecoins successfully added to balance');
+                document.querySelector(modal).style.visibility = "hidden";
             }
 
             else{

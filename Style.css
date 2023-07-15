@@ -362,7 +362,7 @@ form {
 .input-grid{
   min-width: 200px;
   display: grid;
-  padding: 40px 0px 40px 0px;
+  padding: 20px 0px 40px 0px;
   grid-template-columns: 80%;
   grid-gap: 15px;
 }
@@ -745,11 +745,18 @@ form {
 }
 
 .payment-computation{
-  padding: 20px 50px 0px 50px ;
+  padding: 0px 50px 0px 50px ;
   display: grid;
-  grid-template-rows: repeat(2, min-content);
+  grid-template-rows: repeat(4, min-content);
 }
 
+.payment-entry{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.payment-entry h5{
+  margin: 5px 0px 5px 0px;
+}
 
 .payment-buttons{
   display: flex;

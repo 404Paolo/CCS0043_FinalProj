@@ -219,7 +219,7 @@ class User
         if(count($this->coin_cart->items) <= 3){
             $this->coin_cart->items[] = $coin_inventory[$id];
             $this->coin_cart->total += $coin_inventory[$id]["price"];
-
+            
             return true;
         }
 
@@ -233,6 +233,13 @@ class User
         foreach($this->coin_cart->items as $coin){
             $this->balance += $coin['value'];
         }
+        
+        $cart_id = $this->generateCartId();
+        $user_id = $this->user_id;
+        $bill = $this->coin_cart->total;
+        $type = 'coins';
+        $transaction = new Transaction($user_id, $cart_id , $bill, $type);
+        $this->transactions[] = array("user_id"=>$user_id, "cart_id"=>$cart_id, "bill"=>$bill, "transaction_date"=>$transaction->date, "transaction_type"=>$type);
 
         $conn->query("UPDATE users SET balance = $this->balance WHERE user_id = $this->user_id");
         $this->coin_cart = new Cart();
