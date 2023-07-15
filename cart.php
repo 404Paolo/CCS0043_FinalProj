@@ -16,7 +16,7 @@
 </head>
 <body class="home-page">
   <div class="nav">
-  <form class="nav-left" action="webstore.php">
+  <form class="nav-left" action="index.php">
       <input type="submit" class="hidden-button" value="">
       <img src="assets/pgo-logo.webp" class="nav-logo">
       <span class="ttl">Web Store</span>
@@ -24,17 +24,18 @@
     <div class="nav-mid">
     </div>
     <div class="nav-right">
-      <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
+      <form action="coinshop.php" class ="coin-balance" style="position: relative; padding-left: 10px;">
         <p style="margin: 5px;">&#43</p>
         <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
         <img src="assets/PokeCoin.png" class="small-icon">
-      </button>
+        <input type="submit" class="addcoin-button" value="">
+      </form>
       <button class="button gray" onclick="toggleVisibility('.profile-popup');"><?php echo $_SESSION['user']->getUname();?></button>
       <div class="profile-popup" style="visibility:hidden;">
         <form  action="profile.php" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
         </form>
-        <form action="webstore.php" method="POST">
+        <form action="index.php" method="POST">
           <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="alert('This will reset your cart');">
         </form>
       </div>
@@ -44,11 +45,12 @@
     <h1 class="item-title">Order Review</h1>
     <div>
       <h3 style="color:rgb(15, 79, 90);"><?php echo $_SESSION['user']->getUname();?>'s Balance:</h3>
-      <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
-          <p style="margin: 5px;">&#43</p>
-          <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
-          <img src="assets/PokeCoin.png" class="small-icon">
-      </button>
+      <form action="coinshop.php" class ="coin-balance" style="position: relative;">
+        <p style="margin: 5px;">&#43</p>
+        <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
+        <img src="assets/PokeCoin.png" class="small-icon">
+        <input type="submit" class="addcoin-button" value="">
+      </form>
     </div>
     <div class="cart-grid"><?php
       if($_SESSION['user']->getCartCount() > 0){?>
@@ -78,11 +80,17 @@
         <h2 style="color:rgb(15, 79, 90);">
           Seems like your cart is empty
         </h2>
-        <form action="webstore.php">
+        <form action="index.php">
           <input type="submit" class="button green" value="Shop Items">
         </form><?php
       }?>
     </div>
+  </div>
+  <div class="footer">
+    <h4 style="margin-top: 40px;">This webstore is a project built for educational purposes only and is not affiliated with or endorsed by Pokémon GO or its creators Niantic.</h4>
+    <h4>All Pokémon GO assets, including images and trademarks, are the property of their respective owners.</h4>
+    <h4>This webstore does not claim ownership of any Pokémon GO assets used. </h4>
+    <h4>A submission by: Christian Paolo M. Reyes [Group: Russel Westbrook] </h4>
   </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

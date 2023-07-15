@@ -189,6 +189,21 @@ class User
         return dechex($num);
     }
 
+    public function generateCoinCartId()
+    {
+        global $raw_inventory;
+        $base = count($raw_inventory);
+        $num = 0;
+        $len = count($this->coin_cart->items);
+
+        foreach ($this->coin_cart->items as $n => $coin) {
+            $num += ($coin['id'] * pow($base, $len - ($n + 1)));
+        }
+
+        return dechex($num);
+    }
+    
+
     public function completeTransaction()
     {
         global $conn;
@@ -234,13 +249,14 @@ class User
             $this->balance += $coin['value'];
         }
         
-        $cart_id = $this->generateCartId();
+        $cart_id = $this->generateCoinCartId();
         $user_id = $this->user_id;
         $bill = $this->coin_cart->total;
         $type = 'coins';
         $transaction = new Transaction($user_id, $cart_id , $bill, $type);
         $this->transactions[] = array("user_id"=>$user_id, "cart_id"=>$cart_id, "bill"=>$bill, "transaction_date"=>$transaction->date, "transaction_type"=>$type);
-
+        $transaction->complete();
+        
         $conn->query("UPDATE users SET balance = $this->balance WHERE user_id = $this->user_id");
         $this->coin_cart = new Cart();
     }

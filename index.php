@@ -1,13 +1,24 @@
 <?php
   require_once('classes.php');
   session_start();
-  $search_string = $_GET['search_string'];
-  $items_found = searchItem($search_string);
-?>
 
+  if(isset($_POST['signIn'])){
+    unset($_POST['signIn']);
+    $_SESSION['valid_user'] = signInUser($_POST);
+
+    if(!$_SESSION['valid_user']){
+      header('location: signIn.php');
+    }
+  }
+
+  if(isset($_POST['signedOut'])){
+    unset($_SESSION['user']);
+    unset($_SESSION['valid_user']);
+    unset($_POST['signedOut']);
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,13 +26,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Style.css">
-  <title>Document</title>
+  <title>Russel Westbrook</title>
 </head>
-
 <body class="home-page">
-<div class="nav">
+  <div class="nav">
     <form class="nav-left webstore" action="index.php">
       <input type="submit" class="hidden-button" value="">
       <img src="assets/pgo-logo.webp" class="nav-logo">
@@ -64,46 +73,54 @@
       }?>
     </div>
   </div>
-  <div class="main store-grid" style="row-gap: 20px;">
-    <h1 class="item-title"><?php
-    if(!$items_found){echo 'Sorry no items found with "'.$search_string.'"';}
-    else{  echo 'Results for "'.$search_string.'"';?></h1><?php
-      foreach ($items_found as $category => $item) { ?>
-        <div class="item-section">
-          <h1 class="item-title">
-            <?php echo $category ?>
-          </h1>
-          <div class="card-group">
-            <?php
-            foreach ($item as $id) { ?>
-              <div class="card">
-                <div class="card-head pink">
-                  <img class="item-img" src="<?php echo $raw_inventory[$id]["image"]; ?>">
+  <div class="main store-grid"><?php
+    foreach($inventory as $category=>$item){?>
+      <div class="item-section">
+        <h1 class="item-title"><?php echo $category ?></h1>
+        <div class="card-group"><?php
+        foreach($item as $id){?>
+          <div class="card">
+            <div class="card-head pink">
+              <img class="item-img" src="<?php echo $raw_inventory[$id]["image"];?>">
+            </div>
+            <div class="card-body">
+              <div class="item-info">
+                <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
+                <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
+                <div class="item-price">
+                  <img src="assets/PokeCoin.png" class="small-icon"><?php
+                  echo $raw_inventory[$id]["price"]?>
                 </div>
-                <div class="card-body">
-                  <div class="item-info">
-                    <div class="item-name"><?php echo $raw_inventory[$id]["name"];?></div>
-                    <div class="item-desc"><?php echo $raw_inventory[$id]["description"];?></div>
-                    <div class="item-price"><img src="assets/PokeCoin.png" class="small-icon"><?php echo $raw_inventory[$id]["price"] ?></div>
-                    <div><?php
-                      if(isset($_SESSION['user'])){?>
-                        <button class="button green">Add to cart</button><?php
-                      }
-                      else{?>
-                        <form action="signIn.php">
-                          <input type="submit" class="button green" value="Sign-In To Purchase" name="signIn">
-                        </form><?php
-                      }?>
-                    </div>
-                  </div>
+                <div><?php
+                  if(isset($_SESSION['user'])){?>
+                    <button class="button green" onclick="callPhp('addToCart',<?php echo $id?>);">
+                      Add to cart
+                    </button><?php
+                  }
+                  else{?>
+                    <form action="signIn.php">
+                      <input type="submit" class="button green" value="Sign-In To Purchase" name="signIn">
+                    </form><?php
+                  }?>
                 </div>
-              </div><?php
-            } ?>
-          </div>
-        </div><?php
-      }
+              </div>
+            </div>
+          </div><?php
+        }?>
+        </div>
+      </div><?php
     }?>
+  </div>
+  <div class="footer">
+    <h4 style="margin-top: 40px;">This webstore is a project built for educational purposes only and is not affiliated with or endorsed by Pokémon GO or its creators Niantic.</h4>
+    <h4>All Pokémon GO assets, including images and trademarks, are the property of their respective owners.</h4>
+    <h4>This webstore does not claim ownership of any Pokémon GO assets used. </h4>
+    <h4>A submission by: Christian Paolo M. Reyes [Group: Russel Westbrook] </h4>
   </div>
 </body>
 <script src="functions.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  let cartCount = <?php echo (isset($_SESSION['user']))? $_SESSION['user']->getCartCount(): 0; ?>
+</script>
 </html>

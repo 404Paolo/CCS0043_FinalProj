@@ -24,7 +24,7 @@
                 Register
             </button>
         </div>
-        <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);">
+        <form class="input-grid" action="index.php" method="POST" style="grid-template-rows: repeat(2, 50px);">
             <input type="text" name="user_name" id="user_name" placeholder="User name" required>
             <input type="password" name="pass" id="pass" placeholder="Password" required>
             <input type="submit" class="button green" name="signIn">

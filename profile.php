@@ -25,7 +25,7 @@
 
 <body class="home-page">
   <div class="nav">
-    <form class="nav-left" action="webstore.php">
+    <form class="nav-left" action="index.php">
       <input type="submit" class="hidden-button" value="">
       <img src="assets/pgo-logo.webp" class="nav-logo">
       <span class="ttl">Web Store</span>
@@ -33,17 +33,18 @@
     <div class="nav-mid">
     </div>
     <div class="nav-right">
-      <button class="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
+      <form action="coinshop.php" class ="coin-balance" style="position: relative;padding-left: 10px;">
         <p style="margin: 5px;">&#43</p>
         <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
         <img src="assets/PokeCoin.png" class="small-icon">
-      </button>
+        <input type="submit" class="addcoin-button" value="">
+      </form>
       <button class="button gray" onclick='toggleVisibility(".profile-popup")'><?php echo $_SESSION['user']->getUname();?></button>
       <div class="profile-popup" style="visibility:hidden;">
         <form action="" method="POST">
           <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
         </form>
-        <form action="webstore.php" method="POST">
+        <form action="index.php" method="POST">
           <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="confirm('Sign out?');">
         </form>
       </div>
@@ -62,7 +63,7 @@
         <h3>Player id: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getIGN();?></span></h3>
         <h3>Email: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getEmail();?></span></h3>
         <div style="display: grid; grid-template-columns: min-content min-content min-content; align-items: center;">
-          <form action="webstore.php" method="POST" style="justify-content: flex-start;">
+          <form action="index.php" method="POST" style="justify-content: flex-start;">
             <input type="submit" class="button gray" value="Sign out" name="signedOut" style="border: solid 1px;"  onclick="confirm('Sign out?');">
           </form>
           <form action="changePass.php" method="POST" style="justify-content: flex-start;">
@@ -109,8 +110,11 @@
     </div>
   </div>
   <div class="footer">
+    <h4 style="margin-top: 40px;">This webstore is a project built for educational purposes only and is not affiliated with or endorsed by Pokémon GO or its creators Niantic.</h4>
+    <h4>All Pokémon GO assets, including images and trademarks, are the property of their respective owners.</h4>
+    <h4>This webstore does not claim ownership of any Pokémon GO assets used. </h4>
+    <h4>A submission by: Christian Paolo M. Reyes [Group: Russel Westbrook] </h4>
   </div>
 </body>
 <script src="functions.js"></script>
-
 </html>

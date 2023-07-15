@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2023 at 02:34 PM
+-- Generation Time: Jul 15, 2023 at 04:52 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -70,13 +70,13 @@ CREATE TABLE `items` (
 
 INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `category`) VALUES
 (0, 'Pokeball x20', 25, 100, 'assets\\Pokeball.png', 'Catch Pokemons', 'Pokeballs'),
-(1, 'Pokeball x100', 15, 460, 'assets\\Pokeball100.png', 'Catch Pokemons', 'Pokeballs'),
+(1, 'Pokeball x100', 14, 460, 'assets\\Pokeball100.png', 'Catch Pokemons', 'Pokeballs'),
 (2, 'Pokeball x200', 5, 800, 'assets\\Pokeball200.png', 'Catch Pokemons', 'Pokeballs'),
 (3, 'Incubator', 100, 150, 'assets\\Incubator_Limited.png', 'Hatch Pokemons', 'Incubators'),
-(4, 'Super Incubator', 50, 200, 'assets\\Super_Incubator.png', 'Hatch Pokemons', 'Incubators'),
+(4, 'Super Incubator', 49, 200, 'assets\\Super_Incubator.png', 'Hatch Pokemons', 'Incubators'),
 (5, 'Premium Battle Pass', 100, 100, 'assets\\Premium_Battle_Pass.png', 'Participate in raids', 'Battle Passes'),
-(6, 'Remote Raid Pass x1', 5, 195, 'assets\\Remote_Raid_Pass.png', 'Remotely participate in raids', 'Battle Passes'),
-(7, 'Remote Raid Pass x3', 1, 525, 'assets\\Remote_Raid_Pass3.png', 'Remotely participate in raids', 'Battle Passes'),
+(6, 'Remote Raid Pass x1', 50, 195, 'assets\\Remote_Raid_Pass.png', 'Remotely participate in raids', 'Battle Passes'),
+(7, 'Remote Raid Pass x3', 15, 525, 'assets\\Remote_Raid_Pass3.png', 'Remotely participate in raids', 'Battle Passes'),
 (8, 'Incense x1', 100, 80, 'assets\\Incense.png', 'Lure Pokemons to you', 'Incense'),
 (9, 'Incense x8', 15, 500, 'assets\\Incense8.png', 'Lure Pokemons to you', 'Incense'),
 (10, 'Incense x25', 5, 1250, 'assets\\Incense25.png', 'Lure Pokemons to you', 'Incense'),
@@ -101,7 +101,7 @@ INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `ca
 (29, 'Team Medallion', 1, 1000, 'assets\\Team_Medallion.png', 'Change teams(One-time use)', 'Others'),
 (30, 'Poffin', 100, 100, 'assets\\Poffin.png', 'Boost Pokemon\'s\" Conditions', 'Others'),
 (31, 'Star Piece x1', 100, 80, 'assets\\Star_Piece.png', 'Stardust boost', 'Others'),
-(32, 'Star Piece x8', 20, 640, 'assets\\Star_Piece8.png', 'Stardust boost', 'Others');
+(32, 'Star Piece x8', 19, 640, 'assets\\Star_Piece8.png', 'Stardust boost', 'Others');
 
 -- --------------------------------------------------------
 
@@ -110,11 +110,20 @@ INSERT INTO `items` (`id`, `name`, `stock`, `price`, `image`, `description`, `ca
 --
 
 CREATE TABLE `transactions` (
+  `transaction_date` datetime NOT NULL,
   `user_id` int(11) NOT NULL,
   `cart_id` varchar(50) NOT NULL,
-  `transaction_date` date NOT NULL,
-  `bill` int(11) NOT NULL
+  `transaction_type` varchar(10) NOT NULL,
+  `bill` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`transaction_date`, `user_id`, `cart_id`, `transaction_type`, `bill`) VALUES
+('2023-07-15 16:51:21', 1, '1', 'coins', 249),
+('2023-07-15 16:51:31', 1, '1', 'item', 460);
 
 -- --------------------------------------------------------
 
@@ -137,7 +146,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `name`, `user_name`, `ign`, `email`, `pass`, `balance`) VALUES
-(1, 'Christian Paolo Reyes', '404_Paolo', 'Tupac', 'cpaolo852@gmail.com', '00000000', 0);
+(1, 'Christian Paolo M. Reyes', 'Admin', '0000-0000-0000', 'paolo@gmail.com', '00000000', 140);
 
 --
 -- Indexes for dumped tables
@@ -159,7 +168,7 @@ ALTER TABLE `items`
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`user_id`,`cart_id`,`transaction_date`);
+  ADD PRIMARY KEY (`transaction_date`,`user_id`,`cart_id`,`transaction_type`);
 
 --
 -- Indexes for table `users`
@@ -175,17 +184,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

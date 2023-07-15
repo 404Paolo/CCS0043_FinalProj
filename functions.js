@@ -9,7 +9,7 @@ function displayLogIn(){
             Register
         </button>
     </div>
-    <form class="input-grid" action="webstore.php" method="POST" style="grid-template-rows: repeat(2, 50px);"> 
+    <form class="input-grid" action="index.php" method="POST" style="grid-template-rows: repeat(2, 50px);"> 
         <input type="text" name="user_name" id="user_name" placeholder="User name" required>
         <input type="password" name="pass" id="pass" placeholder="Password" required>
         <input type="submit" class="button green" name="signIn">
@@ -78,9 +78,8 @@ function callPhp(functionName, param = 0){
             }
 
             else if(response === 'coin added'){
-                alert('Added to cart');
-                document.querySelector(modal).style.visibility = "";
                 location.reload();
+                alert('Added to cart');
             }
 
             else if(response === 'coin not added'){
@@ -90,7 +89,6 @@ function callPhp(functionName, param = 0){
             else if(response === 'paid'){
                 location.reload();
                 alert('Pokecoins successfully added to balance');
-                document.querySelector(modal).style.visibility = "hidden";
             }
 
             else{
@@ -100,23 +98,3 @@ function callPhp(functionName, param = 0){
         },
     });
 }
-
-let gcashInput = document.querySelector(".gcash-number");
-let payButton = document.querySelector(".pay-button");
-
-gcashInput.addEventListener("input", function() {
-    let gcashNumber = gcashInput.value.trim();
-    let isValid = /^09\d{9}$/.test(gcashNumber);
-    
-    if (isValid){
-        payButton.disabled = false;
-        payButton.style.opacity = "1";
-        payButton.style.pointerEvents = "auto";
-    }
-    
-    else{
-        payButton.disabled = true;
-        payButton.style.opacity = "0.5";
-        payButton.style.pointerEvents = "none"; 
-    }
-});

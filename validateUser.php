@@ -2,7 +2,6 @@
     session_start();
     require_once("classes.php");
     $result = registerUser();
-    print_r($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +17,21 @@
   <title>Sign In</title>
 </head>
 <body class="sign-in-page" style="padding: 0; justify-content: center;">
-    <div class="form-container">
-        <h1 style="text-align: center;">Welcome!</h1>
-        <form class="input-grid" action="webstore.php">
-            <input type="submit" class="button green" value="Start shopping">
-        </form>
-    </div>
+  <div class="form-container"><?php
+    if(strpos($result, 'success') !== false){?>
+      <h1 style="text-align: center;">Welcome!</h1>
+      <form class="input-grid" action="index.php">
+          <input type="submit" class="button green" value="Start shopping">
+      </form><?php
+    }
+    else{?>
+      <h2 style="text-align: center; color:rgba(0,0,0,0.5);" >
+       <?php echo $result;?>
+      </h2>
+      <form class="input-grid" action="signIn.php">
+          <input type="submit" class="button gray" value="Register Again" style="color:rgba(0,0,0,0.5);">
+      </form><?php
+    }?>
 </body>
 <script src="functions.js"></script>
 </html>
