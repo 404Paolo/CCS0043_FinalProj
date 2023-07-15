@@ -1,6 +1,14 @@
 <?php
   require_once("classes.php");
   session_start();
+  $transactions = $_SESSION['user']->getTransactions();
+
+  if(isset($_POST['changedPass'])){
+    unset($_POST['changedPass']);
+    $message = $_SESSION['user']->changePass($_POST['pass'], $_POST['new_pass'], $_POST['cpass']);
+
+    $change_success = (strpos($message, 'success') !== false)? true: false;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,27 +61,47 @@
         <h3>Full name: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getName();?></span></h3>
         <h3>Player id: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getIGN();?></span></h3>
         <h3>Email: <span style="font-weight: 400;"><?php echo $_SESSION['user']->getEmail();?></span></h3>
-        <form action="webstore.php" method="POST" style="justify-content: flex-start;">
-          <input type="submit" class="button gray" value="Sign out" name="signedOut" style="border: solid 1px;"  onclick="confirm('Sign out?');">
-          <form action="signIn.php" method="POST" style="justify-content: flex-start;">
-            <input type="submit" class="button gray" value="Change password" style="border: solid 1px;">
+        <div style="display: grid; grid-template-columns: min-content min-content min-content; align-items: center;">
+          <form action="webstore.php" method="POST" style="justify-content: flex-start;">
+            <input type="submit" class="button gray" value="Sign out" name="signedOut" style="border: solid 1px;"  onclick="confirm('Sign out?');">
           </form>
-        </form>
+          <form action="changePass.php" method="POST" style="justify-content: flex-start;">
+            <input type="submit" class="button gray" value="Change password" style="border: solid 1px;">
+          </form><?php
+          if(isset($change_success)){?>
+            <p class="<?php echo ($change_success)?'notif':'alert';?>">
+              <?php echo $message;?>
+            </p><?php
+          }?>
+        </div>
       </div>
       <div class="transaction-container">
-        <h1 style="margin: 30px 0px 50px 0px">Order History</h1>
-        <div class="transaction-entry">
-          <h4>Items</h4>
-          <h4>Bill</h4>
-          <h4>Date</h4>
-        </div>
-        <div class="transaction-rows">
-          <div class="transaction-entry" style="text-align: left;">
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
+        <h1 style="margin: 30px 0px 50px 0px">Order History</h1><?php
+        if(!$transactions){?>
+          <h3>No transactions yet</h3><?php
+        }
+        else{?>
+          <div class="transaction-entry">
+            <h4>Items</h4>
+            <h4>Bill</h4>
+            <h4>Date</h4>
           </div>
-        </div>
+          <div class="transaction-rows"><?php
+            krsort($transactions);
+            foreach($transactions as $transaction){?>
+              <div class="transaction-entry" style="align-items: center;">
+                <div><?php
+                  $items = decryptCartId($transaction["cart_id"]);
+                  foreach($items as $id){
+                    print($raw_inventory[$id]['name']."<br>");
+                  }?>
+                </div>
+                <div><?php echo $transaction["bill"]?></div>
+                <div><?php echo $transaction["transaction_date"]?></div>
+              </div><?php
+            }?>
+          </div><?php
+        }?>
       </div>
     </div>
   </div>

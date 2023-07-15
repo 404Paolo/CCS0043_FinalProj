@@ -364,7 +364,7 @@ form {
   display: grid;
   padding: 40px 0px 40px 0px;
   grid-template-columns: 80%;
-  grid-gap: 10px;
+  grid-gap: 15px;
 }
 
 .input-grid input{
@@ -500,16 +500,29 @@ form {
   object-fit: contain;
 }
 
-.alert{
-  background-color: rgba(243, 0, 0, 0.2);
-  color: rgba(167, 70, 70, 0.7);
-  border: 1px solid rgba(167, 70, 70, 0.4);
+.alert,
+.notif{
   padding: 10px;
   border-radius: 10px;
   font-family: 'Lato', sans-serif;
   width: max-content;
+  height: 30px;
   font-weight: bold;
   margin: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.alert{
+  background-color: rgba(243, 0, 0, 0.2);
+  color: rgba(167, 70, 70, 0.7);
+  border: 1px solid rgba(167, 70, 70, 0.4);
+}
+
+.notif{
+  background-color: rgba(0, 243, 0, 0.2);
+  color: rgba(97, 167, 70, 0.7);
+  border: 1px solid rgba(86, 167, 70, 0.4);
 }
 
 .remove{

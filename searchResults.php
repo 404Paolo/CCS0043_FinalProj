@@ -34,28 +34,36 @@
     </div>
     <div class="nav-right">
       <?php
-      if(!isset($_SESSION['user'])){?>
+      if(!isset($_SESSION['user'])){
+        ?>
         <form action="signIn.php">
           <input type="submit" class="button green" value="Sign-In" name="signIn">
         </form><?php
       }
-      else{?>
-        <form class ="coin-balance" style="position: relative;">
-          <input type="submit" class="addcoin-button" value="">
-          <img src="assets/coinplus_icon.png" class="small-icon" style="margin: 0;">
-          <span style="font-weight: bold; color: #F1C40F;">200</span>
+      else{
+        ?>
+        <button class ="coin-balance addcoin-button" style="position: relative;" onclick="toggleVisibility('.modal');">
+          <p style="margin: 5px;">&#43</p>
+          <p style="margin: 5px;"><?php echo $_SESSION['user']->getBalance();?></p>
           <img src="assets/PokeCoin.png" class="small-icon">
-        </form>
+        </button>
+        <button class="button gray" onclick="toggleVisibility('.profile-popup');"><?php echo $_SESSION['user']->getUname();?></button>
+        <div class="profile-popup" style="visibility:hidden;">
+          <form  action="profile.php" method="POST">
+            <input class="gray" type="submit" value="Profile" style="border-radius: 0;">
+          </form>
+          <form action="webstore.php" method="POST">
+            <input class="gray" type="submit" value="Sign out" name="signedOut" onclick="alert('This will remove all items in your cart');">
+          </form>
+        </div>
         <form action="cart.php">
           <input type="submit" class="button green" value="Go to cart" >
-        </form>
-        <form action="webstore.php" method="POST" onclick="confirm('Sign out?');">
-          <input type="submit" class="button green" value="Sign out" name="signedOut">
+          <span id="cartCount" class="cart-count"><?php echo $_SESSION['user']->getCartCount(); ?></span>
         </form><?php
       }?>
     </div>
   </div>
-  <div class="main store-grid">
+  <div class="main store-grid" style="row-gap: 20px;">
     <h1 class="item-title"><?php
     if(!$items_found){echo 'Sorry no items found with "'.$search_string.'"';}
     else{  echo 'Results for "'.$search_string.'"';?></h1><?php
@@ -96,4 +104,5 @@
     }?>
   </div>
 </body>
+<script src="functions.js"></script>
 </html>

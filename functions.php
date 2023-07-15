@@ -6,8 +6,10 @@
   $param = $_POST['param'];
 
   if ($func == 'addToCart') {
-    $user->addToCart($param);
-    print('added');
+    $success = $user->addToCart($param);
+
+    if($success){print('added');}
+    else{print('not added');}
   }
   
   elseif ($func == 'removeFromCart') {
@@ -21,8 +23,10 @@
   }
 
   elseif ($func == 'completeTransaction') {
-    $user->completeTransaction();
-    print('transacted');
+    $success = $user->completeTransaction();
+
+    if($success){print('transacted');}
+    else{print('not transacted');}
   }
 
   elseif($func == 'completePayment') {

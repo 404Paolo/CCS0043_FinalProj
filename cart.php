@@ -69,7 +69,7 @@
             onclick="if(confirm('Remove all items from cart?')){callPhp('removeAllFromCart')};">
             Remove all
           </button>
-          <button class="button green" onclick="if(confirm('Remove all items from cart?')){callPhp('removeAllFromCart')};">
+          <button class="button green" onclick="if(confirm('Checkout?')){callPhp('completeTransaction')};">
             Checkout
           </button>
         </div><?php

@@ -55,18 +55,26 @@ function callPhp(functionName, param = 0){
         data: {functionName, param},
         success: function(response) {
             if(response === 'added'){
+                alert("Item added to cart!");
                 cartCount++;
                 document.body.querySelector('.cart-count').innerHTML= cartCount;
             }
 
+            else if(response === 'not added'){
+                alert("Sorry item is out of stock");
+            }
+
             else if(response === 'removed' || response === 'removedAll'){
                 location.reload();
-                console.log('response');
             }
             
             else if(response === 'transacted'){
-                
-                console.log(response);
+                location.reload();
+                alert("Transaction Successful!");
+            }
+
+            else if(response === 'not transacted'){
+                alert("Transaction Failed: Insuffiecient coin balance");
             }
 
             else if(response === 'paid'){
