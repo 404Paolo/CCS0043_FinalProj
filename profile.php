@@ -93,10 +93,13 @@
                 <div><?php
                   $items = decryptCartId($transaction["cart_id"]);
                   foreach($items as $id){
-                    print($raw_inventory[$id]['name']."<br>");
+                    if($transaction['transaction_type'] == 'item'){
+                      print($raw_inventory[$id]['name']."<br>");
+                    }
+                    else{print($coin_inventory[$id]['name']."<br>");}
                   }?>
                 </div>
-                <div><?php echo $transaction["bill"]?></div>
+                <div><?php echo ($transaction['transaction_type'] == 'item')?$transaction["bill"].'  Pokecoins':$transaction["bill"].'  &#8369';?></div>
                 <div><?php echo $transaction["transaction_date"]?></div>
               </div><?php
             }?>

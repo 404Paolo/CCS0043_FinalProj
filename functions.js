@@ -54,8 +54,8 @@ function callPhp(functionName, param = 0){
         type: "POST",
         data: {functionName, param},
         success: function(response) {
-            if(response === 'added'){
-                alert("Item added to cart!");
+            if(/\d/.test(response)){
+                alert(`Item added to cart! ${response} left in stock`);
                 cartCount++;
                 document.body.querySelector('.cart-count').innerHTML= cartCount;
             }
@@ -77,12 +77,23 @@ function callPhp(functionName, param = 0){
                 alert("Transaction Failed: Insuffiecient coin balance");
             }
 
+            else if(response === 'coin added'){
+                location.reload;
+                alert('Procceed to checkout to add Pokecoins');
+                document.querySelector(modal).style.visibility = "";
+            }
+
+            else if(response === 'coin not added'){
+                alert('Sorry, only 3 coin items can be purchased at a time');
+            }
+
             else if(response === 'paid'){
-                
-                console.log(response);
+                location.reload();
+                alert('Pokecoins successfully added to balance');
             }
 
             else{
+                console.log(typeof response);
                 console.log(response);
             }
         },

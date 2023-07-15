@@ -8,7 +8,7 @@
   if ($func == 'addToCart') {
     $success = $user->addToCart($param);
 
-    if($success){print('added');}
+    if($success){print((int)$raw_inventory[$param]['stock']);}
     else{print('not added');}
   }
   
@@ -27,6 +27,13 @@
 
     if($success){print('transacted');}
     else{print('not transacted');}
+  }
+
+  elseif($func == 'addCoin') {
+    $success = $user->addCoin($param);
+
+    if($success){print('coin added');}
+    else{print('coin not added');}
   }
 
   elseif($func == 'completePayment') {

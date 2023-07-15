@@ -110,7 +110,7 @@
       </div><?php
     }?>
   </div>
-  <div class="modal" style="visibility: hidden;">
+  <div class="modal" style="visibility: ;">
     <div class="coinshop-container">
       <button class="remove" onclick="toggleVisibility('.modal'); ">X</button>
       <div class="coin-group">
@@ -131,7 +131,7 @@
                 </p>
                 <img src="assets/PokeCoin.png" class="small-icon" style="margin-left: 5px">
               </div>
-              <button class="button">
+              <button class="button" onclick="callPhp('addCoin',<?php echo $coin['id']?>)">
                 Buy
               </button>
             </div>
@@ -156,18 +156,16 @@
                 <?php echo $_SESSION['user']->getEmail(); ?>
               </span></h4>
             <div class="payment-computation">
-              <h4>Current coin balance: 0</h4>
-              <h4>Current coin balance: 0</h4>
-              <h4>Current coin balance: 0</h4>
             </div>
             <div class="input-grid" style="align-content: center; justify-content: center;">
-              <input class="gcash-number" type="text" placeholder="Gcash number ex. 09#########" style="margin: 0;">
+              <input class="gcash-number" type="text" placeholder="Gcash number ex. 09#########" style="margin: 0;" >
               <div class="payment-buttons">
                 <button type="text" class="button gray" style="border: solid 1px; width: 49%;"
                   onclick="toggleVisibility('.modal');">
                   Cancel
                 </button>
-                <button type="text" class="button green pay-button" style="width: 49%" ;>
+                <button type="text" class="button green pay-button" style="width: 49%; pointer-events: none; opacity: 0.5;" disabled="true";
+                  onclick="if(confirm('Proceed with checkout?')){}">
                   <img src="assets/GCash-Logo.png" class="small icon" style="margin-right: 5px;">
                   &#8369 300
                 </button>

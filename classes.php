@@ -30,6 +30,7 @@ class User
     private $transactions;
     private $balance;
     public $cart;
+    public $coin_cart;
 
     public function __construct($user_id = 0, $name = '', $email = '', $ign = '', $user_name = '', $balance = 0, $pass = '', $cart = new Cart(), $transactions = array())
     {
@@ -40,6 +41,7 @@ class User
         $this->email = $email;
         $this->pass = $pass;
         $this->cart = $cart;
+        $this->coin_cart = new Cart();
         $this->balance = $balance;
         $this->transactions = $transactions;
     }
@@ -129,12 +131,14 @@ class User
     public function addtoCart($id)
     {
         global $raw_inventory;
+        global $conn;
         if ($raw_inventory[$id]["stock"] >= 1) {
             $this->cart->items[] = $id;
             $this->cart->total += $raw_inventory[$id]["price"];
             sort($this->cart->items);
             $raw_inventory[$id]["stock"] -= 1;
-            
+            $conn->query("UPDATE items SET stock = stock - 1 WHERE id = $id;");
+
             return true;
         }
         
@@ -146,11 +150,14 @@ class User
     public function removeFromCart($search_id)
     {
         global $raw_inventory;
+        global $conn;
         foreach ($this->cart->items as $key => $id) {
             if ($search_id == $id) {
                 unset($this->cart->items[$key]);
                 $this->cart->total -= $raw_inventory[$id]["price"];
                 $raw_inventory[$id]["stock"] += 1;
+                $conn->query("UPDATE items SET stock = stock + 1 WHERE id = $id;");
+
                 break;
             }
         }
@@ -159,10 +166,12 @@ class User
     public function removeAllFromCart()
     {
         global $raw_inventory;
+        global $conn;
         foreach ($this->cart->items as $key => $id) {
             unset($this->cart->items[$key]);
             $this->cart->total -= $raw_inventory[$id]["price"];
-            $raw_inventory[$id]["stock"] += 1;
+            $raw_inventory[$id]["stock"] += 1;            
+            $conn->query("UPDATE items SET stock = stock + 1 WHERE id = $id;");
         }
     }
 
@@ -187,8 +196,9 @@ class User
             $cart_id = $this->generateCartId();
             $user_id = $this->user_id;
             $bill = $this->cart->total;
-            $transaction = new Transaction($user_id, $cart_id , $bill);
-            $this->transactions[] = array("user_id"=>$user_id, "cart_id"=>$cart_id, "bill"=>$bill, "transaction_date"=>$transaction->date);
+            $type = 'item';
+            $transaction = new Transaction($user_id, $cart_id , $bill, $type);
+            $this->transactions[] = array("user_id"=>$user_id, "cart_id"=>$cart_id, "bill"=>$bill, "transaction_date"=>$transaction->date, "transaction_type"=>$type);
             $transaction->complete();
 
             $this->balance -= $this->cart->total;
@@ -204,14 +214,28 @@ class User
         }
     }
 
-    public function completePayment($bill)
-    {
-        $bill = $bill . " Pesos";
-        $transaction = new Transaction($this->user_id, $this->generateCartId(), $bill);
-        $this->transactions[] = $transaction;
-        $this->balance -= $this->cart->total;
-        $this->cart->items = array();
-        $this->cart->total = 0;
+    public function addCoin($id){
+        global $coin_inventory;
+        if(count($this->coin_cart->items) <= 3){
+            $this->coin_cart->items[] = $coin_inventory[$id];
+            $this->coin_cart->total += $coin_inventory[$id]["price"];
+
+            return true;
+        }
+
+        else{
+            return false;
+        }
+    }
+
+    public function completePayment(){
+        global $conn;
+        foreach($this->coin_cart->items as $coin){
+            $this->balance += $coin['value'];
+        }
+
+        $conn->query("UPDATE users SET balance = $this->balance WHERE user_id = $this->user_id");
+        $this->coin_cart = new Cart();
     }
 }
 
@@ -232,21 +256,24 @@ class Transaction
     public $user_id;
     public $cart_id;
     public $bill;
+
+    public $transaction_type;
     public $date;
 
-    public function __construct($user_id = 0, $cart_id = '', $bill = '')
+    public function __construct($user_id = 0, $cart_id = '', $bill = '',$transaction_type = '')
     {
         $this->user_id = strval($user_id);
         $this->cart_id = $cart_id;
         $this->bill = $bill;
+        $this->transaction_type = $transaction_type;
         $this->date = date("Y-m-d H:i:s");
     }
 
     public function complete()
     {
         global $conn;
-        $query = "INSERT INTO transactions (user_id, cart_id, transaction_date, bill)
-                      VALUES ($this->user_id, '$this->cart_id', '$this->date', $this->bill);";
+        $query = "INSERT INTO transactions (user_id, cart_id, transaction_date, bill, transaction_type)
+                      VALUES ($this->user_id, '$this->cart_id', '$this->date', $this->bill, '$this->transaction_type');";
         $conn->query($query);
     }
 }
